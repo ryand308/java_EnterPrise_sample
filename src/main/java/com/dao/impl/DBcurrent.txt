@@ -1,0 +1,13 @@
+/*
+	 * Servlet → Service → DAO（使用 DB 連線）
+
+		流程範例：
+		
+		1.Servlet 收到請求，呼叫 Service。
+		2.Service 處理商業邏輯，呼叫 DAO。
+		3.DAO 去取 DB，執行 SQL。
+		4.資料結果回傳到 Servlet，由 Servlet 顯示或回應給前端。
+		這樣分層清楚、維護方便、耦合低，也是主流方式。
+		
+		測試時，可使用 extend DB 或 (組合)new DB(); 可以執行，但不適合放在 servers 使用。不持續、連線分離
+*/

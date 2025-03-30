@@ -1,0 +1,32 @@
+@charset "UTF-8";
+:root {
+	--header-background: #70CAD1;
+	--hero-background: #CAEDFF;
+	--footer-background: #3E517A;
+}
+* {
+	margin: 10px;
+	text-decoration: none; /*關閉下滑線*/
+}
+body {
+	justify-items: center;
+	align-content: center;
+}
+table {
+	margin-top: 25px;
+	text-align: center;
+	min-width: 800px;
+}
+table tr {	
+	height: 50px;	
+}
+table tr:nth-of-type(even) {
+	background-color: #f3f3f3; /* 偶數換色 */
+}
+table tr th {
+	background-color: var(--header-background);
+	color: white;
+}
+table, th, td {
+	border-collapse: collapse;	
+}

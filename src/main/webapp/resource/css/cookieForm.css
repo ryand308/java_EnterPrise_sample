@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+* {
+	margin: 8px;
+}
+body{
+	justify-items: center;
+}
+form {
+	width: 100%;
+	justify-items: center;
+}
+fieldset {
+	display: flex;
+	width: 50%;
+	flex-direction: column;	
+}
+
+fieldset input.sub {
+	margin-left: 80%;
+}

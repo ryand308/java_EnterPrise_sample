@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="https://jakarta.ee/xml/ns/jakartaee"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+	version="5.0">
+	<display-name>ServletBasic</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- 新增 servlet 物件 -->
+	<servlet>
+		<servlet-name>begin</servlet-name>
+		<servlet-class>com.controller.BeginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>begin</servlet-name>
+		<url-pattern>/BeginServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>configure</servlet-name>
+		<servlet-class>com.controller.ConfigServlet</servlet-class>
+
+		<init-param>
+			<param-name>driver</param-name>
+			<param-value>com.mysql.cj.jdbc.Driver</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>configure</servlet-name>
+		<url-pattern>/ConfigServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>filterTest</servlet-name>
+		<servlet-class>com.controller.FilterTestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>filterTest</servlet-name>
+		<url-pattern>/FilterTest.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 新增 filter 物件 -->
+	<filter>
+		<filter-name>encode</filter-name>
+		<filter-class>com.filter.EncodeFilter</filter-class>
+		
+		<init-param>
+			<param-name>code</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>		
+	</filter>
+	<filter-mapping>
+		<filter-name>encode</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	
+	<!-- 新增 param 物件 -->
+	<context-param>
+		<param-name>cookieEl1</param-name>
+		<param-value>cookie使用EL語法輸出</param-value>
+	</context-param>
+	<context-param>
+		<param-name>cookieEl2</param-name>
+		<param-value>使用application輸出</param-value>
+	</context-param>
+	<jsp-config>
+	</jsp-config>	
+</web-app>

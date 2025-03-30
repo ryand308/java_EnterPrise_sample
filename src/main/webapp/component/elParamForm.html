@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<style>
+	* {
+		margin: 10px;
+	}
+	body {
+		justify-items: center;
+	}
+	.form-list {
+		/*margin-top: 50px;*/
+		justify-items: center;
+	}
+	fieldset {
+		width: 450px;
+		border-style: dashed;
+	}
+	fieldset label.program {
+		display: flex;
+		justify-content: center;
+	}
+	fieldset label select {
+		width: 180px;
+		text-align: center;		
+	}
+</style>
+	<div class="form-list">
+		<fieldset>
+			<legend align="center">EL傳遞參數</legend>
+			<label>
+				<span>輸入姓名：</span>
+				<input type="text" name="name" />				
+			</label>
+			<br/>
+			<label>
+				<span>性別：</span>
+				<input type="radio" name="gender" value="male">Male
+				<input type="radio" name="gender" value="female">Female
+			</label>
+			<br/>
+			<label class="program">
+				<p>程式語言：</p>
+				<select name="lang" size="11" multimple>
+					<option value="Python">Python</option>
+					<option value="Java">Java</option>
+					<option value="C">C</option>
+					<option value="C++">C++</option>
+					<option value="Rust">Rust</option>
+					<option value="Go">Go</option>
+				</select>
+			</label>
+			<br/>
+			<label>
+				<p>興趣：</p>
+				<input type="checkBox" name="interest" value="exercise">運動
+				<input type="checkBox" name="interest" value="film">電影
+				<input type="checkBox" name="interest" value="music">音樂
+				<input type="checkBox" name="interest" value="write">寫作
+				<input type="checkBox" name="interest" value="read">閱讀				
+			</label>
+			<br/>
+			<label>
+				<input type="submit" value="Finish Survery">
+				<input type="submit" formaction="index.html" value="首頁" />				
+			</label>
+		</fieldset>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+
+  <!-- 非 JTA 管理的數據源，適用於 transaction-type="RESOURCE_LOCAL" -->
+  <persistence-unit name="myPersistenceUnit" transaction-type="JTA">
+  		<!-- 使用的是內建 OpenJPA。  eclipseLink 要改成 PersistenceProvider-->
+  	 <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+	<jta-data-source>jdbc/jndi</jta-data-source>
+	
+  	<!-- 沒有寫<class>, 有寫@Entity JPA 也會自動掃描 -->
+	<!-- 配置 JPA數據庫屬性 -->
+	 <properties>
+	 <!-- 自動生成表 -->
+      <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+	</properties>
+  </persistence-unit>
+</persistence>

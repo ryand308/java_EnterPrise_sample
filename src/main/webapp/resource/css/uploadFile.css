@@ -1,0 +1,14 @@
+@charset "UTF-8";
+:root {
+	--header-background: #70CAD1;
+	--hero-background: #CAEDFF;
+	--footer-background: #3E517A;
+}
+* {
+	margin: 10px;
+	text-decoration: none;
+}
+body {	
+	justify-items: center;
+	/*align-content: center;*/
+}
