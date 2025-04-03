@@ -36,6 +36,8 @@ public class EmployeeLuv2UpdateServlet extends HttpServlet {
 		// service
 		if(update != null)
 			request.setAttribute("employee", eService.selectEmployee(update));
+		else
+			response.sendRedirect("http://localhost:8080/ServletBasic/EmployeeLuv2Servlet"); //防止無id 更新
 		
 		// output
 		request.getRequestDispatcher("./view/employeeUpdate.jsp").include(request, response);

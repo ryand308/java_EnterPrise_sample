@@ -1,5 +1,7 @@
 package com.service;
 
+import java.util.stream.Stream;
+
 import javax.sql.DataSource;
 
 import com.dao.EmployeeLuv2Dao;
@@ -39,16 +41,15 @@ public class EmployeeServiceStateless {
 		
 		// 只要其中一個沒寫就結束method
 		String[] total = {lName, fName, email, department, salary};
-		for(String t: total) 
-			if(t.trim().matches("")) 
-				return false;
+		if(Stream.of(total).anyMatch(t -> t.trim().matches("")))
+			return false;
 		
 		// 再帶入
 		emp.setLastName(lName);
 		emp.setFirstName(fName);
 		emp.setEmail(email);
 		emp.setDepartments(department);
-		if(salary.matches("\\d*"))
+		if(salary.matches("\\d*"))  //也有在 html 防呆；
 			emp.setSalary(Integer.parseInt(salary)); //java.lang.NumberFormatException
 		
 		// test emp value 是否存在於物件
@@ -87,6 +88,7 @@ public class EmployeeServiceStateless {
 		((EmployeeLuv2DaoImpl)eDao).setDs(ds);
 		
 		EmployeeLuv2 emp = this.selectEmployee(id);
+		
 		// 參數存在就修改
 		if(!lName.trim().matches(""))
 			emp.setLastName(lName);
@@ -100,7 +102,7 @@ public class EmployeeServiceStateless {
 		if(!department.trim().matches(""))
 			emp.setDepartments(department);
 		
-		if(!salary.trim().matches("") && salary.matches("\\d*"))
+		if(!salary.trim().matches("") && salary.matches("\\d+"))
 			emp.setSalary(Integer.parseInt(salary));	
 		
 		

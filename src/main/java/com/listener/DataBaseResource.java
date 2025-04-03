@@ -18,13 +18,8 @@ public class DataBaseResource implements ServletContextListener {
 	}
 
 	public void contextInitialized(ServletContextEvent sce) {
-		/*使用 ServletContextListener 初始化資料庫連線池（BasicDataSource）
-		 * 1.透過 Listener 在應用啟動時就把連線池建好，這是好做法。
-		 * 2.把 DataSource 存到 ServletContext，方便所有 Servlet 存取，等於做了簡單的「手動 JNDI」。
-		 * 
-		 * 非常標準的分層邏輯（Servlet→Service→DAO），解耦、可測試、好維護。
-		 */
-
+		
+		//使用 ServletContextListener 初始化資料庫連線池（BasicDataSource）		 
 		ServletContext servletContext = sce.getServletContext();
 		BasicDataSource ds = new BasicDataSource();
 		

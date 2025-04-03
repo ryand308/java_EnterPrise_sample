@@ -9,7 +9,7 @@
 <body>
 
 	<h1>填寫完畢</h1>
-	<a href="http://localhost:8080/ServletBasic/EmployeeLuv2FormServlet">回表單</a>
+	<a href="http://localhost:8080/ServletBasic/${cookie.back.value}">回表單</a>
 	
 </body>
 </html>

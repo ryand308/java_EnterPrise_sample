@@ -13,7 +13,7 @@
 	<%@include file="../component/header.html" %>
 	
 	<!-- hero -->
-	<div class="hero-emp hero">
+	<div class="hero-set hero">
 		<form action="EmployeeLuv2UpdateServlet" method="post">
 			<h2 style="text-align: center">員工資料修改</h2>
 	<table>
@@ -36,7 +36,7 @@
 			</tr>
 			<tr>
 				<td>Salary</td>
-				<td><input type="text" name="salary" placeholder="${employee.salary}"/></td>
+				<td><input type="text" name="salary" placeholder="${employee.salary}" pattern="\d*"/></td>
 			</tr>
 			<tr>
 				<td colspan="2">

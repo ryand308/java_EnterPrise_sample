@@ -1,0 +1,13 @@
+
+
+******************************************************************************************
+springframework, hibernate, eclipseLink...等都有此配置，而TomEE 內部已有的裝置eclipseLink and openJpa；其餘可下載.jar 或 maven 配置。
+
+******************************************************************************************
+
+網路資源 google search: hibernate TomEE 可以找到 persistence.xml 範例
+網址：
+https://tomee.apache.org/latest/docs/tomee-and-hibernate.html
+(maven dependency)
+https://tomee.apache.org/latest/docs/hibernate.html
+https://tomee.apache.org/latest/examples/jpa-hibernate.html

@@ -10,6 +10,7 @@ import com.service.EmployeeServiceStateless;
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -46,11 +47,14 @@ public class EmployeeLuv2FormServlet extends HttpServlet {
 		String department = request.getParameter("department");
 		String salary = request.getParameter("salary");		
 		
+		Cookie cookie = new Cookie("back", "EmployeeLuv2FormServlet");
+		response.addCookie(cookie);
 		//set method	
 		if(eService.addEmployee(lastName, firstName, email, department, salary))
-			response.sendRedirect("./view/formSuccess.jsp");
-		else
+			response.sendRedirect("./view/formSuccess.jsp");		
+		else		
 			response.sendRedirect("./view/formFail.jsp");
+		
 			
 //		doGet(request, response);
 	}

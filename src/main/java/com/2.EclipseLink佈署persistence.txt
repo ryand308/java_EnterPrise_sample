@@ -1,0 +1,97 @@
+***************************
+********eclipseLink********
+***************************
+不同於OpenJpa
+persistence.xml 配置在 META-INF/persistence.xml
+再<mapping-file>
+my-mapping.xml 配置在 META-INF/my-mapping.xml  外部的 OXM（Object-XML Mapping）描述檔案
+******************************************************************************************
+persistence.xml
+
+ersistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+
+				<!--  transaction-type="RESOURCE_LOCAL" 沒寫為default-->	
+    <persistence-unit name="myPU" >
+    
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <!-- 指定主專案內的實體類 -->
+        <class>com.course.entity.User</class>
+        
+        <!-- 指定外部的映射文件 -->
+        <mapping-file>META-INF/my-mappings.xml</mapping-file>
+
+        <!-- 指定額外 JAR 檔案（相對於 `persistence.xml` 的位置） -->
+        <jar-file>lib/my-additional-jar.jar</jar-file>
+
+		<!-- 沒有 JNDI -->
+        <properties>
+            <property name="javax.persistence.jdbc.driver"   value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/test"/>
+            <property name="javax.persistence.jdbc.user"     value="root"/>
+            <property name="javax.persistence.jdbc.password" value="12345678"/>           
+            
+        </properties>
+    </persistence-unit>
+</persistence>
+
+<jar-file> 讓 EclipseLink 可以掃描 JAR 檔案中的 @Entity 類別，適合模組化 JPA 或共享 ORM 設定。
+******************************************************************************************
+EclipseLink 支援在 persistence.xml 中使用 <jta-data-source> 來指定 JTA（Java Transaction API）資料來源
+通常與 JNDI（Java Naming and Directory Interface） 配合使用
+
+<persistence-unit name="myPU" transaction-type="JTA">
+	<!-- 使用 JNDI 註冊的 DataSource -->
+    <jta-data-source>jdbc/MyDataSource</jta-data-source>
+
+最佳選擇： 🚀 若應用程式部署在 TomEE，JTA 會是更輕量且可擴展的選擇！
+******************************************************************************************
+額外功能：
+	<properties>
+        <!-- 讓 EclipseLink 自動偵測 JTA 交易管理 -->
+        <property name="eclipselink.target-server" value="TomEE"/>
+        
+        <!-- 啟用動態 SQL 日誌（可選） -->
+        <property name="eclipselink.logging.level" value="FINE"/>
+    </properties>
+
+******************************************************************************************
+my-mapping.xml
+
+chatGpt excample:
+
+	<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" version="2.1">
+	    <entity class="com.course.entity.User">
+	        <table name="USER_TABLE"/>
+	        <attributes>
+	            <id name="id">
+	                <generated-value strategy="IDENTITY"/>
+	                <column name="USER_ID"/>
+	            </id>
+	            <basic name="username">
+	                <column name="USERNAME"/>
+	            </basic>
+	            <basic name="email">
+	                <column name="EMAIL"/>
+	            </basic>
+	        </attributes>
+	    </entity>
+	</entity-mappings>
+使用情況：
+1.無法修改 Java 類別（例如：你使用的是別人的 JAR，無法加 @Entity）。
+2.想在不同環境有不同的映射（如開發與正式環境的表結構不同）。
+3.想集中管理 ORM 映射設定，而不混入 Java 原始碼中。
+
+***如果 Java 類別已經有 @Entity, @Table 設定，就不需要 mapping-file，直接用 persistence.xml 配置即可***
+
+******************************************************************************************
+ eclipseLink 要改成 PersistenceProvider provider對應TomEE libary/openjpa/內部類別(以下內容)。
+ <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+ 
+******************************************************************************************
+springframework, hibernate, openJpa...等都有此配置，而TomEE 內部已有的裝置eclipseLink and openJpa；其餘可下載.jar 或 maven 配置。
+
+******************************************************************************************
+ 網路資源 google search: eclipseLink jpa 可以找到 persistence.xml 範例
+ 參考網頁：https://eclipse.dev/eclipselink/
+ 

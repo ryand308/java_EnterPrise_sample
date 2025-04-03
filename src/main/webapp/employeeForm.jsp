@@ -13,7 +13,7 @@
 	<%@include file="component/header.html" %>
 	
 	<!-- hero -->
-	<div class="hero-emp hero">
+	<div class="hero-set hero">
 		<form action="EmployeeLuv2FormServlet" method="post">
 			<%-- 作用在編譯時期 --%>		
 			<%@include file="component/employeeLuv2Table.html" %>

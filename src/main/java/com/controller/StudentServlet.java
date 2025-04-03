@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class StudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
-	StudentServiceStateful service;	
+	private StudentServiceStateful service;	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

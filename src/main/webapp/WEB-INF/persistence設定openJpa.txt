@@ -1,0 +1,54 @@
+openJpa版:
+tomcat 沒有可嘗試maven 依賴
+
+WEB-INF/persistence.xml 是屬於OPenJpa 的方式
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+ 
+  <persistence-unit name="myPersistenceUnit" transaction-type="JPA"> 			<!--transaction-type="RESOURCE_LOCAL" 交由手動管理--> 
+ 	<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+ 	<!-- JNDI 沒有寫在server.xml 無法取得，要補proerties-->
+	<jta-data-source>jdbc/jndi</jta-data-source>								<non-jta-data-source>jdbc/jndi</non-jta-data-source>
+	
+  	<!-- 這裡要寫因為無法使用@Entity；有@Entity可Omit -->
+    <class>com.model.entity.Students</class>
+    <class>com.model.entity.EmployeeLuv2</class>
+
+<properties>
+    	<!-- javax.persistence.jdbc.xxx是固定名稱；屬性名稱是 JPA 標準 -->
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test?serverTimezone=UTC"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.password" value="12345678"/>
+<\properties>
+
+	<!-- default預設為 false, JPA 會自動包含 該 persistence unit（PU）所在的 JAR 或 classpath 中所有的 entity 類別-->
+	<!-- true 只有在你希望手動控制 JPA 掃描範圍（只讓特定類別被識別）時，才需要明確設為 true-->
+   <exclude-unlisted-classes>true</exclude-unlisted-classes>
+  </persistence-unit>
+</persistence>
+
+
+******************************************************************************************
+Tomcat 只是java EE 的 web 容器，無法支援EnityManager 和 UserTransaction 等物件注入 及entity object管理 
+
+//手動(在沒有使用@PersistenceContext)
+EntityManagerFactory emf = Persistence.createEntityManagerFactory("movie-unit");
+EntityManager em = emf.createEntityManager();
+
+//手動(在沒有使用@Resource)
+EntityTransaction tx = em.getTransaction();  // 取得事務管理器
+tx.begin();  // 開啟事務
+
+	void addMovie() {
+		Movie movie = new Movie();
+		movie.setTitle("Inception");
+		em.persist(movie);  // 插入數據
+		
+		tx.commit();  // 提交事務
+		em.close();   // 關閉 EntityManager	
+	}
+
+******************************************************************************************
+Tomcat 環境下要自動的話要轉 maven 專案 dependency(注入依賴) hibernate
+

@@ -27,7 +27,7 @@ public class Students implements Serializable{
 	private String group;
 	@Column(name = "成績")
 	private int score;
-	@Column(name = "社團")
+	@Column(name = "社團")	
 	private int club;
 	
 	public int getId() {
@@ -65,6 +65,11 @@ public class Students implements Serializable{
 	}
 	public void setClub(int club) {
 		this.club = club;
+	}
+	@Override
+	public String toString() {
+		return "Students [id=" + id + ", studentId=" + studentId + ", name=" + name + ", group=" + group + ", score="
+				+ score + ", club=" + club + "]";
 	}
 	
 	

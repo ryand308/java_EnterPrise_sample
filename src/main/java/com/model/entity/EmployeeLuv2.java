@@ -1,5 +1,7 @@
 package com.model.entity;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,8 +14,10 @@ import jakarta.persistence.Table;
  */
 @Entity // 實體的物件
 @Table(name = "employeesofluv2") // 資料庫的 table.name
-public class EmployeeLuv2 {
+public class EmployeeLuv2 implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id // primary key	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
