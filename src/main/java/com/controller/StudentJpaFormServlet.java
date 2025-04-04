@@ -2,7 +2,7 @@ package com.controller;
 
 import java.io.IOException;
 
-import com.service.StudentServiceStatelessJpa;
+import com.dao.impl.StudentJpaDaoStateless;
 
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
@@ -15,8 +15,9 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/StudentJpaFormServlet")
 public class StudentJpaFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	// 測試 所以將業務邏輯寫入dao
     @EJB
-	private StudentServiceStatelessJpa sService;
+	private StudentJpaDaoStateless daoService;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -35,10 +36,11 @@ public class StudentJpaFormServlet extends HttpServlet {
 		String score = request.getParameter("score");
 		String club = request.getParameter("club");
 		
-		Cookie cookie = new Cookie("back", "StudentJpaFormServlet");
+		String path = "http://localhost:8080"+ request.getContextPath()+request.getServletPath();		
+		Cookie cookie = new Cookie("back", path);
 		response.addCookie(cookie);
 		// service method & Redirect
-		if(sService.addStudent(studentId, name, group, score, club))
+		if(daoService.addStudent(studentId, name, group, score, club))
 			response.sendRedirect("./view/formSuccess.jsp");
 		else
 			response.sendRedirect("./view/formFail.jsp");

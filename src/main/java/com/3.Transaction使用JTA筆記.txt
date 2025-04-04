@@ -1,8 +1,8 @@
 
 讓 EJB 變成「手動交易管理模式（BMT）」，這樣 容器不會自動管理交易：
-@Stateful
+@Stateless
 @TransactionManagement(TransactionManagementType.BEAN)  // 這裡改成 BMT，允許手動控制交易
-public class StudentServiceStatefulJpa {
+public class StudentDaoImpl {
 
 	@PersistenceContext(unitName = "看persistence.xml unit name=?")
     private EntityManager em;
@@ -34,7 +34,7 @@ public class StudentServiceStatefulJpa {
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)  // 預設就是 CMT；不寫就是使用此模式
-public class StudentService {
+public class StudentDaoImpl {
 
 	@PersistenceContext(unitName = "看persistence.xml unit name=?")
     private EntityManager em;

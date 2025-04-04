@@ -11,12 +11,13 @@
 body {
 	align-items: center;
 	text-align: center;
+	justify-items: center;
 }
 .header, .footer {
 	color: white;
 }
 .hero, .footer {
-	min-width: 600px;
+	width: 600px;
 	align-content: center;
 }
 .header {

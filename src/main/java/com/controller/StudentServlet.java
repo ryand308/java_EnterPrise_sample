@@ -2,12 +2,10 @@ package com.controller;
 
 import java.io.IOException;
 
-import javax.sql.DataSource;
+import com.service.StudentService;
 
-import com.service.StudentServiceStateful;
-
-import jakarta.annotation.Resource;
-import jakarta.ejb.EJB;
+import jakarta.enterprise.inject.Any;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,8 +18,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/StudentServlet")
 public class StudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	@EJB
-	private StudentServiceStateful service;	
+	@Inject
+	private StudentService service;	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

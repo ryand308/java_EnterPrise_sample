@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import javax.sql.DataSource;
 
+import com.dao.impl.EmployeeLuv2DaoStateful;
+import com.dao.impl.EmployeeLuv2DaoStateless;
 import com.listener.DataBaseResource;
-import com.service.EmployeeServiceStateful;
-import com.service.EmployeeServiceStateless;
 
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
@@ -22,19 +22,19 @@ import jakarta.servlet.http.HttpServletResponse;
 public class EmployeeLuv2Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     @EJB
-	private EmployeeServiceStateful eService;
+	private EmployeeLuv2DaoStateful daoService;
     @EJB
-    private EmployeeServiceStateless eService2;
+    private EmployeeLuv2DaoStateless daoService2;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//DB 資料掛載在ServletContext 的 session；只能透過Servlet獲取
 		if(DataBaseResource.DB != null) {
 			DataSource ds = (DataSource)request.getServletContext().getAttribute(DataBaseResource.DB);
-			eService.setDs(ds);			
+			daoService.setDs(ds);			
 		}
 		
 		// service 處理 dao such
-		var lists = eService.getFindAll();
+		var lists = daoService.getFindAll();
 
 		request.setAttribute("emp", lists);
 		
@@ -48,14 +48,14 @@ public class EmployeeLuv2Servlet extends HttpServlet {
 		
 		if(DataBaseResource.DB != null) {
 			DataSource ds = (DataSource)req.getServletContext().getAttribute(DataBaseResource.DB);
-			eService2.setDs(ds);			
+			daoService2.setDs(ds);			
 		}
 		
 		//get parameter
 		String delete = req.getParameter("delete");
 		
 		// to service
-		eService2.deleteEmployee(delete);
+		daoService2.deleteEmployee(delete);
 		
 		// Redirect
 		String url ="http://localhost:8080"+ req.getContextPath() +req.getServletPath();

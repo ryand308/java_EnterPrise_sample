@@ -51,38 +51,19 @@ context.xml ：
 *************************************DaoImpl的配置******************************************************************************
 step 2.
 Dao implements 要寫 naming 這樣就可以不用從Servlet 再傳到DAO
+
+@Resource(name = "jdbc/jndi")	
 private DataSource dataSource;	
 
-public "自訂類別"DaoImpl() {		
-	this.dataSource = getDataSource(); //創立物件生成
-}
+[DAO層] 屬於 EJB 控管下的 @Stateless or @Stateful 可以直接使用 @Resource
 
-private DataSource getDataSource() {
-		DataSource ds = null;
-		
-		try {
-			Context ctx = new InitialContext();
-			if(ctx == null)
-				throw new RuntimeException("JNDI not found.");
-			
-			ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/jndi");
-			if(ds == null)
-				throw new RuntimeException("DataSource not found.");
-			
-			
-		} catch(NamingException e) {
-			e.printStackTrace();
-		}
-		
-		return ds;
-	}
 *************************************Listener的配置****************************************************************************
 step 3.
 Listener:void contextDestroyed()方法 伺服器結束要釋放的是Driver connection 的資源
 @WebListener
 public class DbDeregisterListener implements ServletContextListener {
 
-
+	//伺服器關閉後，系統再執行
     public void contextDestroyed(ServletContextEvent sce)  { 
         // 有在 Servers 寫 JNDI 都要配置driver.deregister
     	Enumeration<Driver> drivers = DriverManager.getDrivers();

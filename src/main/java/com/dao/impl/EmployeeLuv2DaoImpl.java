@@ -21,11 +21,6 @@ public class EmployeeLuv2DaoImpl implements EmployeeLuv2Dao {
 	// field
 	private DataSource ds;	
 	
-//	// constructor
-//	public EmployeeLuv2DaoImpl(DataSource ds) {
-//		this.ds = ds;
-//	}
-	
 	public void setDs(DataSource ds) {
 		this.ds = ds;
 	}

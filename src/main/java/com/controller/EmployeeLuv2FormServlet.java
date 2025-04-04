@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import javax.sql.DataSource;
 
+import com.dao.impl.EmployeeLuv2DaoStateless;
 import com.listener.DataBaseResource;
-import com.service.EmployeeServiceStateless;
 
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class EmployeeLuv2FormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     @EJB
-	private EmployeeServiceStateless eService;
+	private EmployeeLuv2DaoStateless daoService;
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
@@ -37,7 +37,7 @@ public class EmployeeLuv2FormServlet extends HttpServlet {
 		// DataBase connection to Service from listener of ServletContext.
 		if(DataBaseResource.DB != null) {
 			DataSource ds = (DataSource)request.getServletContext().getAttribute(DataBaseResource.DB);			 
-			eService.setDs(ds);		
+			daoService.setDs(ds);		
 		}
 		
 		// get parameter
@@ -47,10 +47,11 @@ public class EmployeeLuv2FormServlet extends HttpServlet {
 		String department = request.getParameter("department");
 		String salary = request.getParameter("salary");		
 		
-		Cookie cookie = new Cookie("back", "EmployeeLuv2FormServlet");
+		String path = "http://localhost:8080" + request.getContextPath() + request.getServletPath();
+		Cookie cookie = new Cookie("back", path);
 		response.addCookie(cookie);
 		//set method	
-		if(eService.addEmployee(lastName, firstName, email, department, salary))
+		if(daoService.addEmployee(lastName, firstName, email, department, salary))
 			response.sendRedirect("./view/formSuccess.jsp");		
 		else		
 			response.sendRedirect("./view/formFail.jsp");
