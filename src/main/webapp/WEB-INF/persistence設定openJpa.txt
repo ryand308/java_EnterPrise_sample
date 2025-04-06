@@ -16,10 +16,10 @@ WEB-INF/persistence.xml 是屬於OPenJpa 的方式
 
 <properties>
     	<!-- javax.persistence.jdbc.xxx是固定名稱；屬性名稱是 JPA 標準 -->
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test?serverTimezone=UTC"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-      <property name="javax.persistence.jdbc.password" value="12345678"/>
+      <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test?serverTimezone=UTC"/>
+      <property name="jakarta.persistence.jdbc.user" value="root"/>
+      <property name="jakarta.persistence.jdbc.password" value="12345678"/>
 <\properties>
 
 	<!-- default預設為 false, JPA 會自動包含 該 persistence unit（PU）所在的 JAR 或 classpath 中所有的 entity 類別-->
@@ -51,4 +51,13 @@ tx.begin();  // 開啟事務
 
 ******************************************************************************************
 Tomcat 環境下要自動的話要轉 maven 專案 dependency(注入依賴) hibernate
+
+******************************************************************************************
+
+
+
+
+
+
+
 

@@ -4,7 +4,7 @@
 @TransactionManagement(TransactionManagementType.BEAN)  // 這裡改成 BMT，允許手動控制交易
 public class StudentDaoImpl {
 
-	@PersistenceContext(unitName = "看persistence.xml unit name=?")
+	@PersistenceContext(unitName = "看persistence.xml unit name=?", type =  PersistenceContextType.TRANSACTION) 也是預設條件可省略
     private EntityManager em;
     
 	@Resource  // 注入 UserTransaction
@@ -29,6 +29,18 @@ public class StudentDaoImpl {
     
 @Resource滿足條件， 在 EJB 下才可運行@Stateless, @Stateful...；否則造成伺服器無法正常開啟
 
+@PersistenceContext(unitName = "myPersistenceUnit", type = PersistenceContextType.EXTENDED)
+整個 EJB（Stateful）生命週期都使用同一個 EntityManager 實例。
+
+可以跨多個交易持續追蹤、管理同一個實體。
+
+適合用在：
+
+使用者操作分多步（例如：查詢 → 修改 → 儲存）
+
+表單分頁儲存、暫存狀態、Wizard UI 等
+
+@Stateful Session Bean 專用
 //------------------------------------------------------------------------------------------
 讓 EJB 變成「容器管理交易模式（CMT）」
 
@@ -39,7 +51,7 @@ public class StudentDaoImpl {
 	@PersistenceContext(unitName = "看persistence.xml unit name=?")
     private EntityManager em;
     
-    @Transactional
+    @Transactional // 在 EJB 下也可省略
     public void saveStudent(Student student) {
     
     	em.persist(student);

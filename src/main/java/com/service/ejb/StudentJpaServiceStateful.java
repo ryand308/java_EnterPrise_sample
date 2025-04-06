@@ -1,9 +1,10 @@
-package com.dao.impl;
+package com.service.ejb;
 
 import java.util.List;
 import java.util.stream.Stream;
 
 import com.dao.StudentsDao;
+import com.dao.impl.StudentJpaDaoImpl;
 import com.model.entity.Students;
 
 import jakarta.annotation.Resource;
@@ -23,7 +24,7 @@ import jakarta.transaction.UserTransaction;
 @Stateful
 @LocalBean
 @TransactionManagement(TransactionManagementType.BEAN)  // 這裡改成 BMT，允許手動控制交易
-public class StudentJpaDaoStateful{
+public class StudentJpaServiceStateful{
 	// 很像@Autowired；nuitName 是 persistence.xml 檔案裡的name；@PersistenceContext 只能作用在EJB
 	@PersistenceContext(unitName = "myPersistenceUnit")
 	private EntityManager em;

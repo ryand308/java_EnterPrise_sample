@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
 	<!-- 非 JTA 管理的數據源，適用於 transaction-type="RESOURCE_LOCAL" -->
 	<persistence-unit name="myPersistenceUnit" transaction-type="JTA">
@@ -8,14 +8,15 @@
 		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 		<jta-data-source>jdbc/jndi</jta-data-source>
 
-
-		<!-- 沒有寫<class>, 有寫@Entity JPA 也會自動掃描 -->
 		<class>com.model.entity.Students</class>
+		<class>com.model.entity.EmployeeLuv2</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<!-- true 有<class>才會被管理；false 有@Entity 都會管理 -->
 		
 		<!-- 配置 JPA數據庫屬性 -->
 		<properties>
-			<!-- 自動生成表 -->
-			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)" />
+			<!-- 自動sql生成表 -->
+			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction='add')" />
 			
 			<!-- 這裡可能需要指定 JPA Provider，如 OpenJPA 或 Hibernate。強制使用 JTA 交易 @Transactional 的使用；內建UserTransaction-->
 			<property name="openjpa.TransactionMode" value="managed" />

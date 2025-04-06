@@ -1,8 +1,9 @@
-package com.dao.impl;
+package com.service.ejb;
 
 import java.util.stream.Stream;
 
 import com.dao.StudentsDao;
+import com.dao.impl.StudentJpaDaoImpl;
 import com.model.entity.Students;
 
 import jakarta.ejb.LocalBean;
@@ -11,7 +12,6 @@ import jakarta.ejb.TransactionManagement;
 import jakarta.ejb.TransactionManagementType;
 import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 
 /**
  * Session Bean implementation class StudentServiceStatelessJpa
@@ -19,7 +19,7 @@ import jakarta.transaction.Transactional;
 @Stateless
 @LocalBean
 @TransactionManagement(TransactionManagementType.CONTAINER) // 自動模式；可寫可不寫。
-public class StudentJpaDaoStateless {
+public class StudentJpaServiceStateless {
     
 	// call Dao。 EntityManager 透過 CDI 自動注入 DAO；在呼叫 methods時 
 	@Inject

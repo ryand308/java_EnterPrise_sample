@@ -1,7 +1,159 @@
+ 如果persistence.xml 是打包Web file .war 配置 WEB-INF/persistence.war
+ 
+ 如果是 META-INF/persistence.xml 需要 WEB-INF/lib/ 有any .jar 支援
+ persistence.xml 文檔範例：
+ 
+ <persistence version="1.0"
+       xmlns="http://java.sun.com/xml/ns/persistence"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+       http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+
+  <persistence-unit name="hibernate-unit" transaction-type="JTA">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    
+    <jta-data-source>movieDatabase</jta-data-source>
+    <!-- 一般是用上面 jta 管理 -->
+    <non-jta-data-source>movieDatabaseUnmanaged</non-jta-data-source>
+
+    <properties>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+    </properties>
+  </persistence-unit>
+</persistence>
+******************************************************************************************
+******************************************************************************************
+ 額外配置：
+ ----------------------------------------------------------------------------------------
+ 標配:
+<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+1.none	        不會 自動變更資料庫結構（預設值）
+2.validate	    檢查 現有的資料庫結構是否與 @Entity 相符，但不變更
+3.update	    更新 資料庫結構（只新增、不刪除）
+4.create	    每次啟動時重新建立 資料庫（但不刪除）
+5.create-drop	每次啟動時重新建立，關閉應用程式時刪除資料表
+
+<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+1.PostgreSQL	        org.hibernate.dialect.PostgreSQLDialect
+2.MySQL 8+	            org.hibernate.dialect.MySQL8Dialect
+3.MariaDB	            org.hibernate.dialect.MariaDBDialect
+4.Oracle	            org.hibernate.dialect.OracleDialect
+5.Microsoft SQL Server	org.hibernate.dialect.SQLServerDialect
+6.H2	                org.hibernate.dialect.H2Dialect
+7.HyperSQL Database     org.hibernate.dialect.HSQLDialect
+
+<property name="hibernate.show_sql" value="true"/>
+<property name="hibernate.format_sql" value="true"/> 
+
+----------------------------------------------------------------------------------------
+選配：
+<property name="tomee.jpa.cdi" value="false"/> 
+ 
+<property name="hibernate.transaction.manager_lookup_class"  value="org.apache.openejb.hibernate.TransactionManagerLookup"/>
+ 
+<property name="tomee.jpa.factory.lazy" value="true"/>
+
+******************************************************************************************
+******************************************************************************************
+ JNDI context.xml有沒配置 < jta-data-source>myDatabaseName</jta-data-source>  或(二擇一條件，不共用)
+ 
+ 	<!-- 使用 transaction-type="RESOURCE_LOCAL" --> 
+	<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+    <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mydb"/>
+    <property name="javax.persistence.jdbc.user" value="root"/>
+    <property name="javax.persistence.jdbc.password" value="password"/>   就不用配置 tomee.xml。
+            
+ TomEE 補充範例（conf/tomee.xml)
+ 
+ <Resource id="myDatabase" type="DataSource">
+    JdbcDriver  = com.mysql.cj.jdbc.Driver
+    JdbcUrl     = jdbc:mysql://localhost:3306/mydb
+    UserName    = root
+    Password    = password
+    JtaManaged  = true
+</Resource>
+
+******************************************************************************************
+******************************************************************************************
+META-INF/mapping.xml
+
+	<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" version="2.0">
+	    <entity class="com.course.entity.User">
+	        <table name="USER_TABLE"/>
+	        <attributes>
+	            <id name="id">
+	                <generated-value strategy="IDENTITY"/>
+	                <column name="USER_ID"/>
+	            </id>
+	            <basic name="username">
+	                <column name="USERNAME"/>
+	            </basic>
+	            <basic name="email">
+	                <column name="EMAIL"/>
+	            </basic>
+	        </attributes>
+	    </entity>
+	</entity-mappings>
 
 
 ******************************************************************************************
-springframework, hibernate, eclipseLink...等都有此配置，而TomEE 內部已有的裝置eclipseLink and openJpa；其餘可下載.jar 或 maven 配置。
+******************************************************************************************
+    <!-- Hibernate -->
+    <dependency>
+        <groupId>antlr</groupId>
+        <artifactId>antlr</artifactId>
+        <version>2.7.7</version>
+    </dependency>
+    <dependency>
+        <groupId>dom4j</groupId>
+        <artifactId>dom4j</artifactId>
+        <version>1.6.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate.common</groupId>
+        <artifactId>hibernate-commons-annotations</artifactId>
+        <version>4.0.5.Final</version>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>4.2.16.Final</version>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-ehcache</artifactId>
+        <version>4.2.16.Final</version>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-entitymanager</artifactId>
+        <version>4.2.16.Final</version>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>4.3.2.Final</version>
+    </dependency>
+    <dependency>
+        <groupId>org.jboss.logging</groupId>
+        <artifactId>jboss-logging</artifactId>
+        <version>3.1.0.GA</version>
+    </dependency>
+    <dependency>
+        <groupId>org.javassist</groupId>
+        <artifactId>javassist</artifactId>
+        <version>3.15.0-GA</version>
+    </dependency>
+ -----------------------------------------------------------------------------------------
+ spring 統整上述的 hibernate .jar包；內建管理database 的元件
+ <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+ 
+
+******************************************************************************************
+springframework-hibernate, eclipseLink...等都有此配置，而TomEE 內部已有的裝置eclipseLink and openJpa；其餘可下載.jar 或 maven 配置。
 
 ******************************************************************************************
 

@@ -1,10 +1,11 @@
-package com.dao.impl;
+package com.service.ejb;
 
 import java.util.stream.Stream;
 
 import javax.sql.DataSource;
 
 import com.dao.EmployeeLuv2Dao;
+import com.dao.impl.EmployeeLuv2DaoImpl;
 import com.model.entity.EmployeeLuv2;
 
 import jakarta.ejb.LocalBean;
@@ -17,13 +18,13 @@ import jakarta.inject.Inject;
 */
 @Stateless
 @LocalBean
-public class EmployeeLuv2DaoStateless {
+public class EmployeeServiceStateless {
 	private DataSource ds;
 	@Inject
 	private Instance<EmployeeLuv2DaoImpl> daoInstance;
 	private EmployeeLuv2Dao eDao;
 	
-    public EmployeeLuv2DaoStateless() {
+    public EmployeeServiceStateless() {
         // TODO Auto-generated constructor stub
     }
 

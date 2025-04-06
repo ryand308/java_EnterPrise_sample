@@ -14,6 +14,8 @@ import com.model.entity.Students;
 import jakarta.annotation.Resource;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Stateless
 @LocalBean
@@ -21,6 +23,9 @@ public class StudentsDaoImpl implements StudentsDao {
 	//server.xml 須建立Resource
 	@Resource(name = "jdbc/jndi")
 	private DataSource ds;
+	
+	@PersistenceContext( unitName = "myPersistenceUnit")
+	EntityManager em;
 	
 //	public StudentsDaoImpl() {
 //		DataSource ds = null;
@@ -46,26 +51,24 @@ public class StudentsDaoImpl implements StudentsDao {
 	
 	@Override
 	public void add(Students student) {
-		// TODO Auto-generated method stub
-
+		em.persist(student);
 	}
 
 	@Override
 	public void update(Students student) {
-		// TODO Auto-generated method stub
-
+		em.merge(student);
 	}
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
-
+		Students student = this.findById(id);
+		if(student != null)
+			em.remove(student);
 	}
 
 	@Override
 	public Students findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Students.class, id);
 	}
 
 	@Override

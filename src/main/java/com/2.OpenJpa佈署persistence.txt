@@ -22,28 +22,48 @@
 建議使用
 transaction-type="JTA"
 <jta-data-source>jdbc/jndi</jta-data-source>
+.<jta-data-source>：用於容器管理交易（例如在 EJB、@Transactional 裡）。
 
 或者是
 可能在手動開發時？
 
-transaction-type="RESOURCE_LOCAL"
+transaction-type="RESOURCE_LOCAL"；會使用 在沒有JNDI 的配置下
 <non-jta-data-source>jdbc/jndi</non-jta-data-source>
+.<non-jta-data-source>：若用容器的資料來源，但交易交由應用程式自己處理（RESOURCE_LOCAL）。混合型設計，但不常用
 
 *****************************************************************************************
 還有種方法可以將database Resource 直接設定到persistence.xml 內部
 
+<!--transaction-type="RESOURCE_LOCAL" 配置JDBC-->
 <properties>
 	  <!-- javax.persistence.jdbc.xxx是固定名稱；屬性名稱是 JPA 標準 -->
-      <property name="javax.persistence.jdbc.driver"   value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/test?serverTimezone=UTC"/>
-      <property name="javax.persistence.jdbc.user"     value="root"/>
-      <property name="javax.persistence.jdbc.password" value="12345678"/>
+      <property name="jakarta.persistence.jdbc.driver"   value="com.mysql.cj.jdbc.Driver"/>
+      <property name="jakarta.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/test?serverTimezone=UTC"/>
+      <property name="jakarta.persistence.jdbc.user"     value="root"/>
+      <property name="jakarta.persistence.jdbc.password" value="12345678"/>
 <\properties>
 
 DaoImpl 使用 methods of EntityManger；在EntityManger 完成Persistence unit，所以不需要額外connection database;
-
 ******************************************************************************************
-springframework, hibernate, eclipseLink...等都有此配置，而TomEE 內部已有的裝置eclipseLink and openJpa；其餘可下載.jar 或 maven 配置。
+
+<properties>
+			<!-- 自動建立表 -->
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction='add')" />            
+            <!-- 記錄 SQL -->
+            <property name="openjpa.Log" value="SQL=TRACE"/>
+</properties>
+
+1.buildSchema(SchemaAction='add')：會 自動建立新的表，但不修改已存在的結構。
+
+2.buildSchema(SchemaAction='drop,add')：會 刪除舊表並重新建立（不建議在正式環境使用）。
+
+3.buildSchema(SchemaAction='refresh')：會 更新現有的表（新增欄位，但不刪除舊欄位）。
+
+4.buildSchema(ForeignKeys=true) 可跟上面同步使用像是，buildSchema(SchemaAction='add', ForeignKeys=true) 等
+
+5."none" 關閉功能。
+******************************************************************************************
+springframework-hibernate, eclipseLink...等都有此配置，而TomEE 內部已有的裝置eclipseLink and openJpa；其餘可下載.jar 或 maven 配置。
 
 ******************************************************************************************
 

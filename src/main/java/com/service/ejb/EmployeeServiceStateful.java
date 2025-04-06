@@ -1,10 +1,11 @@
-package com.dao.impl;
+package com.service.ejb;
 
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import com.dao.EmployeeLuv2Dao;
+import com.dao.impl.EmployeeLuv2DaoImpl;
 
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateful;
@@ -13,7 +14,7 @@ import jakarta.inject.Inject;
 
 @Stateful
 @LocalBean
-public class EmployeeLuv2DaoStateful {
+public class EmployeeServiceStateful {
 	// Instance<> 延遲實體化(@Lazy)
 	@Inject
 	private Instance<EmployeeLuv2DaoImpl> daoInstance;

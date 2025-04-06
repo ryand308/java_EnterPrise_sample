@@ -8,7 +8,10 @@ my-mapping.xml 配置在 META-INF/my-mapping.xml  外部的 OXM（Object-XML Map
 ******************************************************************************************
 persistence.xml
 
-ersistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+<persistence version="1.0"
+             xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 
 				<!--  transaction-type="RESOURCE_LOCAL" 沒寫為default-->	
     <persistence-unit name="myPU" >
@@ -18,13 +21,16 @@ ersistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
         <!-- 指定主專案內的實體類 -->
         <class>com.course.entity.User</class>
         
+        <!-- otherwise they must be listed using <class>  在EclipseLink 必須設定-->
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        
         <!-- 指定外部的映射文件 -->
         <mapping-file>META-INF/my-mappings.xml</mapping-file>
 
         <!-- 指定額外 JAR 檔案（相對於 `persistence.xml` 的位置） -->
         <jar-file>lib/my-additional-jar.jar</jar-file>
 
-		<!-- 沒有 JNDI -->
+		<!-- 沒有 JNDI 使用 transaction-type="RESOURCE_LOCAL"-->
         <properties>
             <property name="javax.persistence.jdbc.driver"   value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/test"/>
@@ -37,6 +43,15 @@ ersistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
 
 <jar-file> 讓 EclipseLink 可以掃描 JAR 檔案中的 @Entity 類別，適合模組化 JPA 或共享 ORM 設定。
 ******************************************************************************************
+<exclude-unlisted-classes>false</exclude-unlisted-classes>
+
+1.設為 false（預設值）：會自動包含所有 classpath 中有註解 @Entity 的類別。
+
+2.設為 true：只有你明確用 <class> 標出來的類別會被當作 Entity。
+
+
+
+******************************************************************************************
 EclipseLink 支援在 persistence.xml 中使用 <jta-data-source> 來指定 JTA（Java Transaction API）資料來源
 通常與 JNDI（Java Naming and Directory Interface） 配合使用
 
@@ -48,6 +63,18 @@ EclipseLink 支援在 persistence.xml 中使用 <jta-data-source> 來指定 JTA�
 ******************************************************************************************
 額外功能：
 	<properties>
+		<!-- 啟用自動建表 -->
+        <property name="javax.persistence.schema-generation.database.action" value="create" />
+	
+		<!-- 讓 EclipseLink 直接修改 DB -->
+        <property name="eclipselink.ddl-generation" value="create-tables"/>
+        <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+
+		<!-- 可選：輸出 DDL 到檔案 -->
+        <property name="eclipselink.create-ddl-jdbc-file-name" value="create.sql"/>
+        <property name="eclipselink.drop-ddl-jdbc-file-name" value="drop.sql"/>        
+----------------------------------------------------------------------------------------------------
+
         <!-- 讓 EclipseLink 自動偵測 JTA 交易管理 -->
         <property name="eclipselink.target-server" value="TomEE"/>
         
@@ -89,7 +116,7 @@ chatGpt excample:
  <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
  
 ******************************************************************************************
-springframework, hibernate, openJpa...等都有此配置，而TomEE 內部已有的裝置eclipseLink and openJpa；其餘可下載.jar 或 maven 配置。
+springframework-hibernate, openJpa...等都有此配置，而TomEE 內部已有的裝置eclipseLink and openJpa；其餘可下載.jar 或 maven 配置。
 
 ******************************************************************************************
  網路資源 google search: eclipseLink jpa 可以找到 persistence.xml 範例

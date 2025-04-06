@@ -1,4 +1,4 @@
-package com.test;
+package com.test.jdbcMysql;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

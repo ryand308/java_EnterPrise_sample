@@ -1,9 +1,9 @@
-package com.controller;
+package com.controller.student;
 
 import java.io.IOException;
 
-import com.dao.impl.StudentJpaDaoStateful;
-import com.dao.impl.StudentJpaDaoStateless;
+import com.service.ejb.StudentJpaServiceStateful;
+import com.service.ejb.StudentJpaServiceStateless;
 
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
@@ -18,17 +18,17 @@ public class StudentPersistenceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	// 測試 所以將業務邏輯寫入dao
 	@EJB
-	private StudentJpaDaoStateful daoService;
+	private StudentJpaServiceStateful service;
 	@EJB
-	private StudentJpaDaoStateless daoService2;
+	private StudentJpaServiceStateless service2;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//test transaction
-		daoService.testBMT();
+		service.testBMT();
 		
 		// call list
-		var results = daoService.allStudent();
+		var results = service.allStudent();
 		request.setAttribute("stu1", results);
 		
 		//output
@@ -42,7 +42,7 @@ public class StudentPersistenceServlet extends HttpServlet {
 		String delete = request.getParameter("delete");
 		
 		// call service method
-		daoService2.deleteStudent(delete);
+		service2.deleteStudent(delete);
 		
 		response.sendRedirect("http://localhost:8080"+ request.getContextPath() +request.getServletPath());
 	}

@@ -19,11 +19,11 @@ public class Students implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private int id;
 	
-	@Column(name = "學號")	
+	@Column(name = "學號", unique = true)	
 	private int studentId;
-	@Column(name = "姓名")	
+	@Column(name = "姓名", length = 50)	
 	private String name;
-	@Column(name = "班級")	
+	@Column(name = "班級", length = 50)	
 	private String group;
 	@Column(name = "成績")
 	private int score;

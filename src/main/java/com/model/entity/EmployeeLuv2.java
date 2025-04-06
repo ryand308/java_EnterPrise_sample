@@ -21,13 +21,14 @@ public class EmployeeLuv2 implements Serializable{
 	@Id // primary key	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "last_name")
+	
+	@Column(name = "last_name", length = 50)
 	private String lastName;
-	@Column(name = "first_name")
+	@Column(name = "first_name", length = 50)
 	private String firstName;
-	@Column(name = "email")
+	@Column(name = "email", length = 50)
 	private String email;
-	@Column(name = "departments")
+	@Column(name = "departments", length = 50)
 	private String departments;
 	@Column(name = "salary")
 	private int salary;

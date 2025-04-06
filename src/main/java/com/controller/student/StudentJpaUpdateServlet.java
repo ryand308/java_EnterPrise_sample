@@ -1,4 +1,4 @@
-package com.controller;
+package com.controller.student;
 
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import com.dao.impl.StudentJpaDaoStateless;
+import com.service.ejb.StudentJpaServiceStateless;
 
 /**
  * Servlet implementation class StudentJpaUpdateServlet
@@ -18,7 +18,7 @@ public class StudentJpaUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	// 測試 所以將業務邏輯寫入dao
     @EJB
-	private StudentJpaDaoStateless daoService;
+	private StudentJpaServiceStateless service;
     private String update = null;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,7 +28,7 @@ public class StudentJpaUpdateServlet extends HttpServlet {
 		
 		// set Attribute
 		if(update != null)
-			request.setAttribute("student", daoService.findStudent(update));
+			request.setAttribute("student", service.findStudent(update));
 		else
 			response.sendRedirect("http://localhost:8080/ServletBasic/StudentPersistenceServlet"); //防止無id 更新
 			
@@ -50,7 +50,7 @@ public class StudentJpaUpdateServlet extends HttpServlet {
 		
 		// service method
 		String id = update;
-		daoService.updateStudent(studentId, name, group, score, club, id);
+		service.updateStudent(studentId, name, group, score, club, id);
 		
 		// Redirect
 		response.sendRedirect("http://localhost:8080/ServletBasic/StudentPersistenceServlet");

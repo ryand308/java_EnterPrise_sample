@@ -1,26 +1,41 @@
-1.
-測試版本：
+1.版本：
 
-[Servlet 層]      -> [Service 層]     -> {   偽[Service 層] ->  [DAO 層]    } = [DAO 層]
-(@WebServlet)           被忽略		        (@Stateless)  +    (@Dependent)
+EJB @Stateless/@Stateful 確實是在 Service tier，原本就是將 商業邏輯、資料庫處理 寫在 Servlet tier；
+而在有EntityManager 的條件下，自然省略對 DAO tier 的建立，直接使用 EntityManager 下的CRUD 方法。
 
-尚未了解 EJB 的特性與 CDI 注入依賴間的關係；從而瞭解到@EJB 不只是只能置入Servlet tier，和 EJB 與 CDI 之間的注入。
+使用 JDBC 時所用
+
+[Servlet 層]   ->        [Service 層]    ->     [DAO 層]
+(@WebServlet)            (@Stateless)      (@Dependent)=JDBC
+----------------------------------------------------------------------------------
+在佈署persistence.xml後 受JPA Provider管理
+                               
+[Servlet 層]   ->  {     [Service 層]  ->     JPA[DAO 層]            } = 融合層（merged layer）  ->  [DAO 層] 省略
+(@WebServlet)           (@Stateless)     (@Dependent)=EntityManager                            JDBC(不寫)
+
+會稱為 "偽[Service層]" 是因為 @EntityManager 實際作用是在@Stateless tier，只是藉由 CDI 注入依賴。 
+---------------------------------------------------------------------------------------
+尚未了解 EJB 的特性與 CDI 注入依賴間的關係；從而瞭解到@EJB 不只是只能置入Servlet tier。
 
 
-偽[Servlet 層] + [DAO 層]  = [DAO 層]
-這樣 DAO 層變成了一個“偽 Service 層”，因為它不只是做資料庫操作，還可能包含了一些業務邏輯，導致職責不清晰。
+[Service 層] + JPA[DAO 層]  = 「合併 Service/DAO 職責的 Service 層」
+
+這樣變成了一個“[融合層]”，因為它不只是做"業務邏輯"，還包含了"資料庫操作"，導致職責不清晰。
 
 *****************************************************************************************************
 *****************************************************************************************************
 
-2.
-正規版：
+2.版本：
+
 [Servlet 層]      ->  [Service 層]         ->  [DAO 層]
 (@WebServlet)         (@ApplicationScoped)     (@Stateless)
 
+---------------------------------------------------------------------------
 Spring boot:
 
+[Servlet 層]      ->  [Service 層]         ->  [DAO 層]
 @Controller           @Service                 @Repository
+*****************************************************************************************************
 *****************************************************************************************************
 [DAO 層]
 (@Stateless/@Stateful/@Dependent)

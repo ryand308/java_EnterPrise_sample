@@ -8,13 +8,14 @@ import com.model.entity.Students;
 import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceContextType;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 
 @Dependent // 這是 CDI 的 Scope，讓 CDI 容器管理這個 Bean
 public class StudentJpaDaoImpl implements StudentsDao {
 	//成功注入 
-	@PersistenceContext(unitName = "myPersistenceUnit")
+	@PersistenceContext(unitName = "myPersistenceUnit", type =  PersistenceContextType.TRANSACTION)
 	private EntityManager em;
 	
 	//getter	
