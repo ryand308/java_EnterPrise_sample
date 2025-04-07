@@ -6,13 +6,12 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
              
 	<persistence-unit name="eclipseUnit" transaction-type="RESOURCE_LOCAL">    
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        
-        
-        <!-- 指定外部的映射文件； eclipse 無法使用true<class>
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>        
+
+        <!--很重要對 eclipseLink ，有註記 @Entity 都會選取：無法使用true<class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         -->
-		
+			<!-- 指定外部的映射文件 -->
          <mapping-file>META-INF/mapping.xml</mapping-file>
 		
 		<!-- 沒有 JNDI 使用 transaction-type="RESOURCE_LOCAL"-->

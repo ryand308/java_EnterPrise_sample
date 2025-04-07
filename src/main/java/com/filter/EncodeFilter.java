@@ -1,5 +1,7 @@
 package com.filter;
 
+import java.io.IOException;
+
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -9,11 +11,10 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 
-import java.io.IOException;
 
 
-
-//@WebFilter("/EncodeFilter") web.xml 有寫；那@ annotation 最好也不要再寫(兩者會相互干擾；穩定性問題)
+//web.xml 有寫；那@ annotation 最好也不要再寫(兩者會相互干擾；穩定性問題)
+//@WebFilter(urlPatterns = "/EncodeFilter", asyncSupported = true) 
 public class EncodeFilter extends HttpFilter implements Filter {
 
 	private static final long serialVersionUID = 1L;

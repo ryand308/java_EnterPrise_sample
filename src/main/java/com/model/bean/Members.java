@@ -1,4 +1,4 @@
-package com.model.entity;
+package com.model.bean;
 
 import java.io.Serializable;
 
@@ -52,6 +52,12 @@ public class Members implements Serializable{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	@Override
+	public String toString() {
+		return "Members [id=" + id + ", name=" + name + ", gender=" + gender + ", address=" + address + ", phone="
+				+ phone + "]";
+	}
+
 	
 	
 }

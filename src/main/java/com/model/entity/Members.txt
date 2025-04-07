@@ -11,8 +11,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-@Entity //測試佈署 mapping.xml
-@Table(name = "USER_TABLE")
+
+@Entity
+@Table(name = "members")
 public class Members implements Serializable{
 
 	private static final long serialVersionUID = 1L;
