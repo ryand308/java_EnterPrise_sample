@@ -1,0 +1,35 @@
+@charset "UTF-8";
+@import "colorBoard.css";
+* {
+	text-decoration: none;
+	justify-items: center;
+}
+div {
+	width: 800px;
+	justify-items: center;
+}
+h3 {
+	text-align: center;
+	color: var(--ash-gray--);
+}
+/*--------------------------table--------------------------------*/
+table {
+	width: 100%;
+}
+table tr {
+	height: 50px;
+}
+table tr th {
+ background: var(--Bistre--);
+ color: var(--light-platinum);
+}
+table, th, td {
+ /* border: 1px solid black;*/
+  border-collapse: collapse;
+}
+table tr:nth-of-type(odd) {
+  background: var(--platinum--);
+}
+table tr td {
+	text-align: center;
+}

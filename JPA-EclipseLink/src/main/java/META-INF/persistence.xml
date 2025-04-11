@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0"
+	xmlns="https://jakarta.ee/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+	
+	<persistence-unit name="eclipseUnit" transaction-type="JTA">    
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <!-- 必須新增 -->
+        <jta-data-source>jndi/mysql</jta-data-source>
+        
+        <class>model.Member</class>    
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+           
+        <!-- eclipseLink 未修正 javax.persistence.Entity --> 
+        
+         
+        <!--很重要對 eclipseLink ，有註記 @Entity 都會選取：無法使用true<class>
+      		<mapping-file>META-INF/mapping.xml</mapping-file>
+        -->
+	
+        <properties>
+			<!-- 直接掃描對應的dataBase；eclipseLink 會優先掃描內建資料庫，最後才掃到MySql -->
+			<property name="eclipselink.target-database" value="MySQL"/>
+            <!-- 讓 EclipseLink 直接修改 DB -->
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+
+            <!-- 可選：輸出 DDL 到檔案 -->
+            <property name="eclipselink.create-ddl-jdbc-file-name" value="create.sql"/>
+            <property name="eclipselink.drop-ddl-jdbc-file-name" value="drop.sql"/>            
+            
+            <!-- 檢查 Console 有沒有例外 -->
+            <property name="eclipselink.logging.level" value="FINE"/>
+        </properties>
+        
+    </persistence-unit>
+  <!-- =============================================================================== -->
+    
+</persistence>

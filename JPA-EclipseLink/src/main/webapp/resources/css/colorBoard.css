@@ -1,0 +1,14 @@
+@charset "UTF-8";
+:root {
+	/* light color*/
+	--reseda-green: #7E846B;
+	--ash-gray--: #A5AE9E;
+	--platinum--: #D0DDD7;
+	--light-platinum: #D4E0DB;
+	/* dark color*/
+	--Bistre--: #271F04;
+	--drab-dark-brown: #2B2204;
+	--drab-brown-: #2F2504;
+	--drab-light-brown: #594E36;
+	
+}

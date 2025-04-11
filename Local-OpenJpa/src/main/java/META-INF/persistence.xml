@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+	<persistence-unit name="OpenJpaUnit" transaction-type="RESOURCE_LOCAL">
+	<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+	
+	<class>model.Customer</class>
+	<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			
+			<!-- 自動sql生成表 -->
+			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction='add')" />			
+			<!-- 這裡可能需要指定 JPA Provider，如 OpenJPA 或 Hibernate。強制使用 JTA 交易 @Transactional 的使用；內建UserTransaction
+			<property name="openjpa.TransactionMode" value="managed" />
+			-->
+			<!-- 記錄 SQL -->
+            <property name="openjpa.Log" value="SQL=TRACE"/>
+           
+            <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/company"/>
+            <property name="openjpa.ConnectionUserName" value="root"/>
+            <property name="openjpa.ConnectionPassword" value="12345678"/>            
+            <property name="openjpa.ConnectionDriverName" value="com.mysql.cj.jdbc.Driver"/>
+           
+            <!-- 不使用加載時強化和編譯時強化，使用運行時Unenhanced；Resource_local 使用，JTA 管理可省略-->
+            <property name="openjpa.ClassLoadEnhancement" value="false" />
+            <property name="openjpa.DynamicEnhancementAgent" value="false" />
+            <property name="openjpa.RuntimeUnenhancedClasses" value="supported" />
+            
+		</properties>
+	</persistence-unit>
+</persistence>

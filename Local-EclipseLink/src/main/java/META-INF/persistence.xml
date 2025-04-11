@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+	<persistence-unit name="testLocalEclipseLink">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>        
+
+        <!--很重要對 eclipseLink ，有註記 @Entity 都會選取：無法使用true<class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        -->
+			<!-- 指定外部的映射文件 -->
+         <mapping-file>META-INF/mapping.xml</mapping-file>
+		
+		<!-- 沒有 JNDI 使用 transaction-type="RESOURCE_LOCAL"-->
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver"   value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/company?serverTimezone=UTC"/>
+            <property name="jakarta.persistence.jdbc.user"     value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value="12345678"/>           
+			<!--  修先掃描MySQL資料庫 -->
+			<property name="eclipselink.target-database" value="MySQL"/>
+            <!-- 讓 EclipseLink 直接修改 DB -->
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+
+            <!-- 可選：輸出 DDL 到檔案 -->
+            <property name="eclipselink.create-ddl-jdbc-file-name" value="create.sql"/>
+            <property name="eclipselink.drop-ddl-jdbc-file-name" value="drop.sql"/>
+        </properties>
+	</persistence-unit>
+</persistence>
