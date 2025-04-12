@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import jakarta.enterprise.context.Dependent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -9,6 +10,7 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import model.Customer;
 
+@Dependent
 public class CustomerDaoImpl implements CustomerDao {
 
 	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("testLocalHibernate");

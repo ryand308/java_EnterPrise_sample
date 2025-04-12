@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,13 +15,14 @@ import service.CustomerService;
  */
 @WebServlet("/CustomerFindServlet")
 public class CustomerFindServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;    
-	private CustomerService service = new CustomerService();
-	
+	private static final long serialVersionUID = 1L;
+	@Inject
+	private CustomerService service;
+		
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// get method of service
-		service.findAllCustomer();		
+		service.findAllCustomer();
 		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}

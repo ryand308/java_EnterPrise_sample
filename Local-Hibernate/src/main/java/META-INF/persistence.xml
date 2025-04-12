@@ -20,7 +20,10 @@
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
 			<property name="hibernate.id.new_generator_mappings" value="true"/>
-					
+			
+			<!-- 將tomEE 內建的jpa factory 延遲；避免產生 啟動時錯誤-->
+			<property name="tomee.jpa.factory.lazy" value="true"/>
+			<property name="tomee.jpa.cdi" value="true"/>
 		</properties>
 	</persistence-unit>
 </persistence>
