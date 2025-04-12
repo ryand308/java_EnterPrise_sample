@@ -6,13 +6,13 @@
 	<class>model.Customer</class>
 	<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
-			
-			<!-- 自動sql生成表 -->
-			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction='add')" />			
-			<!-- 這裡可能需要指定 JPA Provider，如 OpenJPA 或 Hibernate。強制使用 JTA 交易 @Transactional 的使用；內建UserTransaction
-			<property name="openjpa.TransactionMode" value="managed" />
-			-->
-			<!-- 記錄 SQL -->
+	
+	<!-- 自動sql生成表 -->
+	<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction='add')" />			
+	<!-- 這裡可能需要指定 JPA Provider，如 OpenJPA 或 Hibernate。強制使用 JTA 交易 @Transactional 的使用；內建UserTransaction
+	<property name="openjpa.TransactionMode" value="managed" />
+	-->
+	<!-- 記錄 SQL -->
             <property name="openjpa.Log" value="SQL=TRACE"/>
            
             <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/company"/>
