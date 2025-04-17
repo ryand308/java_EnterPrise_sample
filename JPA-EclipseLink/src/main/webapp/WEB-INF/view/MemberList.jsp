@@ -10,7 +10,7 @@
 </head>
 <body>
 	
-	<div>
+	<section>
 		<h2>會員清單</h2>
 		<table>
 			<thead>
@@ -20,6 +20,8 @@
 					<th>sex</th>
 					<th>address</th>
 					<th>phone</th>
+					<th>delete</th>
+					<th>update</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,11 +32,23 @@
 						<td>${member.name}</td>
 						<td>${member.sex}</td>
 						<td>${member.address}</td>
-						<td>${member.phone}</td>					
+						<td>${member.phone}</td>						
+						<td>
+							<form action="MemberServlet" method="post">
+								<input type="hidden" name="delete" value="${member.id}"/>
+								<input type="submit" value="刪除" />
+							</form>
+						</td>
+						<td>
+							<form action="MemberFormServlet" method="get">
+								<input type="hidden" name="update" value="${member.id}"/>
+								<input type="submit" value="更新" />
+							</form>
+						</td>				
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-	</div>
+	</section>
 </body>
 </html>

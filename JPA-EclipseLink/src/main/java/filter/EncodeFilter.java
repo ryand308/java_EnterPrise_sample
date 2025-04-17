@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class EncodeFilter
  */
-@WebFilter("/EncodeFilter")
+@WebFilter("/*")
 public class EncodeFilter extends HttpFilter implements Filter {
 
 	private static final long serialVersionUID = 1L;
@@ -45,12 +45,15 @@ public class EncodeFilter extends HttpFilter implements Filter {
 		String pattern = ".*/?resources/.*";
 		
 		// pass the request along the filter chain
-		if(!hsr.getRequestURI().matches(pattern))
+		if(hsr.getRequestURI().matches(pattern)) {
 			chain.doFilter(request, response);
+			return;
+		}
 		
 		// get encoding
 		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset:utf8");
+		response.setContentType("text/html; charset:utf-8");
+		response.setCharacterEncoding("utf-8");
 		chain.doFilter(request, response);
 	}
 

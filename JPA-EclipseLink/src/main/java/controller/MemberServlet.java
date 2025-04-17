@@ -17,7 +17,7 @@ import service.MemberService;
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Inject
-	MemberService service;
+	private MemberService service;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -29,10 +29,16 @@ public class MemberServlet extends HttpServlet {
 		// request forward		
 		request.getRequestDispatcher("./WEB-INF/view/MemberList.jsp").forward(request, response);
 		
-		// redirect
-//		response.sendRedirect("http://localhost:8080/testEclipseLink");
-
 	}
 
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		String delete = req.getParameter("delete");
+		service.deleteMember(delete);
+		
+		resp.sendRedirect("http://localhost:8080"+ req.getContextPath() +req.getServletPath());
+	}
+
+	
 }

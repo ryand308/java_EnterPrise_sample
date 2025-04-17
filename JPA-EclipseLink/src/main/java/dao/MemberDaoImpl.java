@@ -2,66 +2,53 @@ package dao;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import jakarta.annotation.Resource;
 import jakarta.ejb.Local;
 import jakarta.ejb.Stateless;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 import model.Member;
 
 @Stateless
 @Local(MemberDao.class) //MeberDao 加@Local 也行 
 public class MemberDaoImpl implements MemberDao {
-
-    @PersistenceContext(unitName = "eclipseUnit")
-	EntityManager em;
+	@Resource
+	private DataSource ds;
 	
-    public MemberDaoImpl() {
-        // TODO Auto-generated constructor stub
-    }
+	@Override
+	public DataSource getDs() {
+		return this.ds;
+	}
+	
+	//--------------JDBC---------------------------
+	@Override
+	public void add(Member member) {
+		// TODO Auto-generated method stub
+		
+	}
 
-	/**
-     * @see MemberDao#update(Member)
-     */
-    public void update(Member member) {
-        em.merge(member);
-    }
+	@Override
+	public void update(Member member) {
+		// TODO Auto-generated method stub
+		
+	}
 
-	/**
-     * @see MemberDao#delete(int)
-     */
-    public void delete(int id) {
-    	
-    	Member member = this.findById(id);
-    	if(member != null)
-    		em.remove(member);
-    }
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		
+	}
 
-	/**
-     * @see MemberDao#findById(int)
-     */
-    public Member findById(int id) {
-        
-    	Member member = em.find(Member.class, id);
-    	
-		return member;
-    }
+	@Override
+	public Member findById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	/**
-     * @see MemberDao#add(Member)
-     */
-    public void add(Member member) {        
-        em.persist(member);        
-    }
-
-	/**
-     * @see MemberDao#getAllStudents()
-     */
-    public List<Member> getAllStudents() {
-
-    	Query query = em.createNamedQuery("Member.findAll", Member.class);
-    	List<Member> list = query.getResultList();    	
-			return list;
-    }
+	@Override
+	public List<Member> getAllStudents() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

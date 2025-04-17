@@ -30,8 +30,8 @@
             <property name="eclipselink.create-ddl-jdbc-file-name" value="create.sql"/>
             <property name="eclipselink.drop-ddl-jdbc-file-name" value="drop.sql"/>            
             
-            <!-- 檢查 Console 有沒有例外 -->
-            <property name="eclipselink.logging.level" value="FINE"/>
+            <!-- [INFO, FINEST] -->
+			<property name="eclipselink.logging.level" value="FINEST" />
         </properties>
         
     </persistence-unit>

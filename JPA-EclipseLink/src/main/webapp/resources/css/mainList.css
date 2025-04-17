@@ -4,7 +4,8 @@
 	text-decoration: none;
 	justify-items: center;
 }
-div {
+/*-------------------------table & title<h3>----------------------*/
+section {
 	width: 800px;
 	justify-items: center;
 }
@@ -14,7 +15,7 @@ h3 {
 }
 /*--------------------------table--------------------------------*/
 table {
-	width: 100%;
+	width: 100%; /* 因為外圍有<section> 控寬度*/
 }
 table tr {
 	height: 50px;

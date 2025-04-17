@@ -1,0 +1,24 @@
+@charset "UTF-8";
+@import "colorBoard.css";
+* {
+	text-decoration: none;
+	justify-items: center;
+}
+/*------------------------------------------*/
+section.mebForm {
+    background: var(--drab-light-brown);
+    height: 450px;
+    min-width: 400px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    align-content: center;
+}
+section.mebForm h2 {
+	color: white;
+}
+section.mebForm table {
+	color: white;
+}
+section.mebForm table tr {
+	height: 45px;
+}
