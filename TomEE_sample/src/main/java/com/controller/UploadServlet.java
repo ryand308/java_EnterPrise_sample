@@ -58,7 +58,7 @@ public class UploadServlet extends HttpServlet {
 		response.getWriter().println("檔案：" + file + " 。上傳成功");
 		
 		// 轉跳
-		response.sendRedirect("./view/uploadSuccess.jsp");
+		response.sendRedirect("./uploadSuccess.jsp");
 		
 	}	
 

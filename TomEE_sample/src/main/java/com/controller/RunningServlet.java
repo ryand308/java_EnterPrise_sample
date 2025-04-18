@@ -30,7 +30,7 @@ public class RunningServlet extends HttpServlet {
 		RunUtility.run(5);
 		
 		//導向結果至view
-		request.getRequestDispatcher("./view/threadResult.jsp").include(request, response);
+		request.getRequestDispatcher("./WEB-INF/view/threadResult.jsp").include(request, response);
 	}
 
 }

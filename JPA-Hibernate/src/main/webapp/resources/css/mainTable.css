@@ -1,0 +1,28 @@
+@charset "UTF-8";
+@import "colorBoard.css";
+* {
+	text-decoration: none;
+	justify-items: center;
+}
+/*--------------------------------*/
+section.cusTable {
+	width: 700px;	
+}
+section.cusTable h2{
+	color: var(--black-olive-);
+}
+.cusTable table {
+	width: 100%;
+}
+table, th, td {
+	 border-collapse: collapse;
+}
+.cusTable table thead{
+	background-color: var(--celeste--);
+}
+.cusTable table tr{
+	height: 50px;
+}
+.cusTable table tbody tr:nth-child(even){
+	background-color: #eee;
+}

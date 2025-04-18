@@ -25,7 +25,7 @@ public class StudentServlet extends HttpServlet {
 		
 		request.setAttribute("stu", service.searchAll());
 		// output
-		request.getRequestDispatcher("./view/studentSql.jsp").include(request, response);		
+		request.getRequestDispatcher("./WEB-INF/view/studentSql.jsp").include(request, response);		
 		
 	}
 

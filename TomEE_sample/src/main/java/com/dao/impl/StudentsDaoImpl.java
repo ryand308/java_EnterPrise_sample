@@ -12,19 +12,17 @@ import com.dao.StudentsDao;
 import com.model.entity.Students;
 
 import jakarta.annotation.Resource;
-import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 @Stateless
-@LocalBean
 public class StudentsDaoImpl implements StudentsDao {
 	//server.xml 須建立Resource
 	@Resource(name = "jdbc/jndi")
 	private DataSource ds;
 	
-	@PersistenceContext( unitName = "myPersistenceUnit")
+	@PersistenceContext( unitName = "myPersistenceUnit") //openJpa 
 	EntityManager em;
 	
 //	public StudentsDaoImpl() {
@@ -73,8 +71,8 @@ public class StudentsDaoImpl implements StudentsDao {
 
 	@Override
 	public List<Students> getAllStudents() {
-
-		String sql = "select * from test.students";
+		
+		String sql = "select * from test.students";  //JDBC 的寫法
 		
 		var list = new ArrayList<Students>();
 		

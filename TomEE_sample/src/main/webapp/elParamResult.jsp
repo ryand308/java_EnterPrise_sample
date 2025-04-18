@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>輸出表達式</title>
-<link rel="stylesheet" type="text/css" href="../resource/css/elParamResult.css">
+<link rel="stylesheet" type="text/css" href="resource/css/elParamResult.css">
 </head>
 <body>
 <style>

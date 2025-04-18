@@ -52,9 +52,9 @@ public class EmployeeLuv2FormServlet extends HttpServlet {
 		response.addCookie(cookie);
 		//set method	
 		if(eService.addEmployee(lastName, firstName, email, department, salary))
-			response.sendRedirect("./view/formSuccess.jsp");		
+			response.sendRedirect("./formSuccess.jsp");		
 		else		
-			response.sendRedirect("./view/formFail.jsp");
+			response.sendRedirect("./formFail.jsp");
 		
 			
 //		doGet(request, response);

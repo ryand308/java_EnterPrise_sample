@@ -19,7 +19,7 @@
 
 最基本：<input pattern="\d*" /> 防止後端NullpointException -->
 	<!-- header -->
-	<%@include file="../component/header.html" %>
+	<%@include file="../../component/header.html" %>
 	
 	<!-- hero -->
 	<div class="hero-set hero">

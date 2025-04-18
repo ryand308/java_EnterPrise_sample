@@ -5,12 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>填寫完成</title>
-<link type="text/css" rel="stylesheet" href="../resource/css/main.css" />
+<link type="text/css" rel="stylesheet" href="resource/css/main.css" />
 </head>
 <body>
 
 	<!-- header -->
-	<%@include file="../component/header.html" %>
+	<%@include file="component/header.html" %>
 
 	<!-- hero -->
 	<div class="hero">

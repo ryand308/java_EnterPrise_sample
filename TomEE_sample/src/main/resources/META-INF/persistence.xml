@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--  不建置在server 單機測試 -->
 <persistence version="1.0"
-             xmlns="http://java.sun.com/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
              
 	<persistence-unit name="eclipseUnit" transaction-type="RESOURCE_LOCAL">    
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>        
@@ -20,7 +20,8 @@
             <property name="jakarta.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/company?serverTimezone=UTC"/>
             <property name="jakarta.persistence.jdbc.user"     value="root"/>
             <property name="jakarta.persistence.jdbc.password" value="12345678"/>           
-
+			<!--  修先掃描MySQL資料庫 -->
+			<property name="eclipselink.target-database" value="MySQL"/>
             <!-- 讓 EclipseLink 直接修改 DB -->
             <property name="eclipselink.ddl-generation" value="create-tables"/>
             <property name="eclipselink.ddl-generation.output-mode" value="database"/>

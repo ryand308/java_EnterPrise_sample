@@ -11,7 +11,7 @@
 <body>
 
 	<!-- header -->
-	<%@include file="../component/header.html" %>
+	<%@include file="../../component/header.html" %>
 	
 	<!-- hero  -->	
 		<table>

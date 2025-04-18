@@ -41,16 +41,26 @@ transaction-type="RESOURCE_LOCAL"；會使用 在沒有JNDI 的配置下
       <property name="jakarta.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/test?serverTimezone=UTC"/>
       <property name="jakarta.persistence.jdbc.user"     value="root"/>
       <property name="jakarta.persistence.jdbc.password" value="12345678"/>
+      擇一種因為是一樣的(推薦選下)
+      <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/test?serverTimezone=UTC"/>
+      <property name="openjpa.ConnectionUserName" value="root"/>
+      <property name="openjpa.ConnectionPassword" value="12345678"/>            
+      <property name="openjpa.ConnectionDriverName" value="com.mysql.cj.jdbc.Driver"/>      
+      
+      <!-- 不使用加載時強化和編譯時強化，使用運行時Unenhanced；Resource_local 使用，**JTA** 管理可省略-->
+	   <property name="openjpa.ClassLoadEnhancement" value="false" />
+	   <property name="openjpa.DynamicEnhancementAgent" value="false" />
+	   <property name="openjpa.RuntimeUnenhancedClasses" value="supported" />
 <\properties>
 
 DaoImpl 使用 methods of EntityManger；在EntityManger 完成Persistence unit，所以不需要額外connection database;
 ******************************************************************************************
 
 <properties>
-			<!-- 自動建立表 -->
-            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction='add')" />            
-            <!-- 記錄 SQL -->
-            <property name="openjpa.Log" value="SQL=TRACE"/>
+	<!-- 自動建立表 -->
+    <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction='add')" />            
+    <!-- 記錄 SQL -->
+    <property name="openjpa.Log" value="SQL=TRACE"/>
 </properties>
 
 1.buildSchema(SchemaAction='add')：會 自動建立新的表，但不修改已存在的結構。

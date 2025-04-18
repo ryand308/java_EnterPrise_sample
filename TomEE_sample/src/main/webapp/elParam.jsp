@@ -15,7 +15,7 @@
 	</div>
 <!-- hero -->
 	<div class="hero">
-		<form action="view/elParamResult.jsp" >
+		<form action="elParamResult.jsp" >
 			<jsp:include page="component/elParamForm.html"></jsp:include>
 		</form>
 	</div>

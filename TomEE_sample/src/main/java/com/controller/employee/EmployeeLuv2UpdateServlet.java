@@ -40,7 +40,7 @@ public class EmployeeLuv2UpdateServlet extends HttpServlet {
 			response.sendRedirect("http://localhost:8080/ServletBasic/EmployeeLuv2Servlet"); //防止無id 更新
 		
 		// output
-		request.getRequestDispatcher("./view/employeeUpdate.jsp").include(request, response);
+		request.getRequestDispatcher("./WEB-INF/view/employeeUpdate.jsp").include(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

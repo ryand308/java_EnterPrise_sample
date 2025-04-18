@@ -3,16 +3,14 @@ package com.service.ejb;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.dao.StudentsDao;
-import com.dao.impl.StudentJpaDaoImpl;
 import com.model.entity.Students;
+import com.repository.StudentRepository;
 
 import jakarta.annotation.Resource;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateful;
 import jakarta.ejb.TransactionManagement;
 import jakarta.ejb.TransactionManagementType;
-import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -33,8 +31,7 @@ public class StudentJpaServiceStateful{
     private UserTransaction ut;
 	
 	@Inject
-	private Instance<StudentJpaDaoImpl> daoInstance;
-	private StudentsDao sDao;
+	private StudentRepository repository;	
 	
 	// 沒有特別用途純粹測試手動；99%都使用CMT（容器管理交易）自動@Ttransactional。
 	public void testBMT() {
@@ -49,8 +46,7 @@ public class StudentJpaServiceStateful{
 	}
 	
 	
-    public List<?> allStudent() {  	
-    	sDao = daoInstance.get();    	   	
+    public List<?> allStudent() {  	    	    	   	
 		
 		try(Stream<Students> stream = em.createQuery("SELECT s FROM Students s", Students.class).getResultStream();
 			Stream<Students> stream1 =stream.filter(club -> club.getClub() == 0).peek(stu -> System.out.println(stu.getName()));
@@ -61,7 +57,7 @@ public class StudentJpaServiceStateful{
 				System.out.println(l);			
 		}
 		
-		return sDao.getAllStudents();
+		return repository.findAll();
     }
     
 }

@@ -17,7 +17,8 @@ persistence.xml
     <persistence-unit name="myPU" >
     
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-
+		<!-- 必須新增 -->
+        <jta-data-source>jndi/mysql</jta-data-source>
         <!-- 指定主專案內的實體類 -->
         <class>com.course.entity.User</class>
         
@@ -55,7 +56,7 @@ persistence.xml
 EclipseLink 支援在 persistence.xml 中使用 <jta-data-source> 來指定 JTA（Java Transaction API）資料來源
 通常與 JNDI（Java Naming and Directory Interface） 配合使用
 
-<persistence-unit name="myPU" transaction-type="JTA">
+	<persistence-unit name="myPU" transaction-type="JTA">
 	<!-- 使用 JNDI 註冊的 DataSource -->
     <jta-data-source>jdbc/MyDataSource</jta-data-source>
 
@@ -63,6 +64,7 @@ EclipseLink 支援在 persistence.xml 中使用 <jta-data-source> 來指定 JTA�
 ******************************************************************************************
 額外功能：
 	<properties>
+<!-- 必備 -->
 		<!-- 啟用自動建表 -->
         <property name="javax.persistence.schema-generation.database.action" value="create" />
 	
@@ -72,7 +74,10 @@ EclipseLink 支援在 persistence.xml 中使用 <jta-data-source> 來指定 JTA�
 
 		<!-- 可選：輸出 DDL 到檔案 -->
         <property name="eclipselink.create-ddl-jdbc-file-name" value="create.sql"/>
-        <property name="eclipselink.drop-ddl-jdbc-file-name" value="drop.sql"/>        
+        <property name="eclipselink.drop-ddl-jdbc-file-name" value="drop.sql"/>   
+ -----------------------------------------------------------------------------------------------------       
+<!--必備  直接掃描對應的dataBase；eclipseLink 會優先嘗試 HSQLDB」（Eclipse 預設的內建 DB），最後才掃到MySql，導致語法錯誤-->
+		<property name="eclipselink.target-database" value="MySQL"/>     
 ----------------------------------------------------------------------------------------------------
 
         <!-- 讓 EclipseLink 自動偵測 JTA 交易管理 -->

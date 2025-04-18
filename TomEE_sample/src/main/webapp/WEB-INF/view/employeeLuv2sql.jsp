@@ -13,7 +13,7 @@
 	<!-- header 依賴內部css -->
 	<div class="header">
 		<!-- 最好使用編譯的方式 -->
-		<%@include file="../component/header.html" %>
+		<%@include file="../../component/header.html" %>
 	</div>
 	<table>
 		<thead>

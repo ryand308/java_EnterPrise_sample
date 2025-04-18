@@ -1,0 +1,14 @@
+@charset "UTF-8";
+:root {
+	/* light color*/
+	--spring-green-: #20FC8F;
+	--celeste--: #B5F4DF;
+	--light-gree-: #B3FFB9;
+	--ice--blue-: #8DFCF7;
+	
+	/* back color*/
+	--jet--: #2D2D2A;
+	--black-olive-: #353831;
+	--onyx--: #383E42;
+	--feldgrau-: #3F5E5A;
+}

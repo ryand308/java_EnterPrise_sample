@@ -51,7 +51,7 @@ public class LifeCycleTestServlet extends HttpServlet {
 		
 		
 		
-		RequestDispatcher dp = request.getRequestDispatcher("./view/lifeCycleList.html");
+		RequestDispatcher dp = request.getRequestDispatcher("./WEB-INF/view/lifeCycleList.html");
 		dp.include(request, response);
 	}
 

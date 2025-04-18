@@ -10,7 +10,7 @@
 <body>
 	<!-- header 依賴內部css -->
 	
-	<%@include file="../component/header.html" %>
+	<%@include file="../../component/header.html" %>
 	
 	<!-- hero -->
 	<div class="hero-set hero">

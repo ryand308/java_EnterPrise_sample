@@ -1,5 +1,7 @@
 package com.test.jpaEclipseLink;
 
+
+
 import com.model.bean.Members;
 
 import jakarta.persistence.EntityManager;
@@ -11,10 +13,8 @@ import jakarta.persistence.Persistence;
 
 public class JpaMainCreate {
 
-
 	public static void main(String[] args) {
 		
-
 		EntityManagerFactory emf =Persistence.createEntityManagerFactory("eclipseUnit", System.getProperties());
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();

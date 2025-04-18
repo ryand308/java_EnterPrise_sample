@@ -40,7 +40,7 @@ public class CookieServlet extends HttpServlet {
 		}
 		
 		// 需要轉跳網址；
-		response.sendRedirect("/ServletBasic/view/cookieInfo.jsp");
+		response.sendRedirect("/ServletBasic/cookieInfo.jsp");
 	}
 
 }

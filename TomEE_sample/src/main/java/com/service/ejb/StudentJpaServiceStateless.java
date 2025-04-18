@@ -3,8 +3,8 @@ package com.service.ejb;
 import java.util.stream.Stream;
 
 import com.dao.StudentsDao;
-import com.dao.impl.StudentJpaDaoImpl;
 import com.model.entity.Students;
+import com.repository.StudentRepository;
 
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
@@ -23,14 +23,12 @@ public class StudentJpaServiceStateless {
     
 	// call Dao。 EntityManager 透過 CDI 自動注入 DAO；在呼叫 methods時 
 	@Inject
-	private Instance<StudentJpaDaoImpl> daoInstance;
-	private StudentsDao sDao;
+	private StudentRepository repository;
 	
 	//EJB 已經是 Container-Managed Transactions (CMT)；自動(容器)管理Transaction 機制，可寫可不寫@Transactional
     public boolean addStudent(String studentId, String name, String group, String score, String club) {
-    	sDao = daoInstance.get();
 
-    	Students student = ((StudentJpaDaoImpl)sDao).getStudents();
+    	Students student = repository.getStudents();
     	
     	String[] total = {studentId, name, group, score, club};
     	//fail
@@ -44,26 +42,23 @@ public class StudentJpaServiceStateless {
     	student.setScore(Integer.parseInt(score));
     	student.setClub(Integer.parseInt(club));
     	
-    	sDao.add(student);
+    	repository.add(student);
     	return true;
     }
 	
-	public void deleteStudent(String delete) {
-    	sDao = daoInstance.get();
+	public void deleteStudent(String delete) {    	
     	
-    	sDao.delete(Integer.parseInt(delete));
+    	repository.delete(Integer.parseInt(delete));
     }
 
-	public Students findStudent(String update) {
-		sDao = daoInstance.get();
+	public Students findStudent(String update) {		
 		
-    	Students student = sDao.findById(Integer.parseInt(update));
+    	Students student = repository.findById(Integer.parseInt(update));
     	
     	return student;
 	}
 	
 	public void updateStudent(String studentId, String name, String group, String score, String club, String id) {	
-		sDao = daoInstance.get();
     	
     	Students student = this.findStudent(id);
     	
@@ -82,7 +77,7 @@ public class StudentJpaServiceStateless {
     	if(!club.trim().matches("") && club.matches("\\d+"))
     		student.setClub(Integer.parseInt(club));
 
-		sDao.update(student);
+		repository.update(student);
 		
 	}
 }

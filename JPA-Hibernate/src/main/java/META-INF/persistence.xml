@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+	<persistence-unit name="testHibernate" transaction-type="JTA">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<jta-data-source>jndi/mysql</jta-data-source>
+		<class>model.Customer</class>
+		
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		
+		<properties>
+			<!-- [validate, update, create, create-drop] -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+			<property name="hibernate.id.new_generator_mappings" value="true"/>
+			
+			<!-- 將tomEE 內建的jpa factory 延遲；避免產生 啟動時錯誤 -->
+			<property name="tomee.jpa.factory.lazy" value="true"/>
+			<property name="tomee.jpa.cdi" value="true"/>
+		</properties>
+	</persistence-unit>
+</persistence>

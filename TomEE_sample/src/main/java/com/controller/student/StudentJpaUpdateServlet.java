@@ -1,6 +1,7 @@
 package com.controller.student;
 
 import jakarta.ejb.EJB;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,7 +18,7 @@ import com.service.ejb.StudentJpaServiceStateless;
 public class StudentJpaUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	// 測試 所以將業務邏輯寫入dao
-    @EJB
+    @Inject
 	private StudentJpaServiceStateless service;
     private String update = null;
     
@@ -33,7 +34,7 @@ public class StudentJpaUpdateServlet extends HttpServlet {
 			response.sendRedirect("http://localhost:8080/ServletBasic/StudentPersistenceServlet"); //防止無id 更新
 			
 		// output
-		request.getRequestDispatcher("./view/studentJpaUpdate.jsp").include(request, response);
+		request.getRequestDispatcher("./WEB-INF/view/studentJpaUpdate.jsp").include(request, response);
 	}
 
 	/**

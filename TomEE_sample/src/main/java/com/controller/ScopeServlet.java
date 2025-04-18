@@ -52,7 +52,7 @@ public class ScopeServlet extends HttpServlet {
 		request.setAttribute("names", names); 
 		request.setAttribute("mark", "hi requestSope");
 		
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/elScope.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/view/elScope.jsp");
 		rd.forward(request, response);
 	}
 

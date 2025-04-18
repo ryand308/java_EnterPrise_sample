@@ -24,7 +24,7 @@ public class AsyncRequestProcessor implements Runnable {
 		RunUtility.run(5);
 		
 		// ./view/threadResult.jsp or view/threadResult.jsp 是錯誤寫法
-		asyncContext.dispatch("/view/threadResult.jsp");
+		asyncContext.dispatch("/WEB-INF/view/threadResult.jsp");
 	}	
 	
 

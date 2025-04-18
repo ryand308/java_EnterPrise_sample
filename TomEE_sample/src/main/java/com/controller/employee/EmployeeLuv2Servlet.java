@@ -38,7 +38,7 @@ public class EmployeeLuv2Servlet extends HttpServlet {
 
 		request.setAttribute("emp", lists);
 		
-		request.getRequestDispatcher("/view/employeeLuv2sql.jsp").forward(request, response);
+		request.getRequestDispatcher("./WEB-INF/view/employeeLuv2sql.jsp").forward(request, response);
 		
 		
 	}

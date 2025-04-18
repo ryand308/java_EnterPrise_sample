@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.model.entity.Students;
 
+import jakarta.ejb.Local;
+
+@Local
 public interface StudentsDao {
 
 	void add(Students student);

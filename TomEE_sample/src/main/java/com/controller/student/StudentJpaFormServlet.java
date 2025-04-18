@@ -41,9 +41,9 @@ public class StudentJpaFormServlet extends HttpServlet {
 		response.addCookie(cookie);
 		// service method & Redirect
 		if(service.addStudent(studentId, name, group, score, club))
-			response.sendRedirect("./view/formSuccess.jsp");
+			response.sendRedirect("./formSuccess.jsp");
 		else
-			response.sendRedirect("./view/formFail.jsp");
+			response.sendRedirect("./formFail.jsp");
 	}
 
 }

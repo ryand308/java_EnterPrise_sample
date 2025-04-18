@@ -28,7 +28,7 @@ public class CookieElServlet extends HttpServlet {
 		for(Cookie cookie: cookies)
 			response.addCookie(cookie);
 		
-		getServletContext().getRequestDispatcher("/view/cookieEl.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/WEB-INF/view/cookieEl.jsp").forward(request, response);
 	}	
 
 }

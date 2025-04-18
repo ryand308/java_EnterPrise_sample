@@ -17,9 +17,11 @@ public class JpaMainUpdate {
 		
 		Members member = em.find(Members.class, 1);
 		
+		//-----------------Transaction--------------------------
 		System.out.println("Before: " + member);
 		
 		et.begin();
+		
 		member.setName("parker");
 		member.setAddress("6-10");		
 		

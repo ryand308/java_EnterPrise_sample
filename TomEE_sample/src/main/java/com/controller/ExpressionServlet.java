@@ -58,7 +58,7 @@ public class ExpressionServlet extends HttpServlet {
 		array[1] = emp2;
 		request.setAttribute("array", array);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/view/elAccess.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/view/elAccess.jsp");
 				
 		rd.forward(request, response);
 	}
