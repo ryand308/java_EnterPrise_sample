@@ -2,9 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-import dao.CustomerDao;
-import dao.CustomerDaoImpl;
-import jakarta.ejb.EJB;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,9 +20,9 @@ public class CustomerListServlet extends HttpServlet {
 	private CustomerService service;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+			
 		// method from service; String to Json		 		
-		response.getWriter().append(service.findCustomerJson());
+		response.getWriter().append(service.findAllCustomerJson());
 		
 		// request dispatcher include 
 		request.getRequestDispatcher("./WEB-INF/view/customerTable.html").include(request, response);
@@ -36,8 +33,15 @@ public class CustomerListServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		// getParameter
+		String delete = request.getParameter("delete");				
+		
+		System.out.println(delete);
+		// delete method from service	
+		service.deleteCustomer(delete);
+		
+		response.sendRedirect("http://localhost:8080" + request.getContextPath() + request.getServletPath());
 	}
 
 }

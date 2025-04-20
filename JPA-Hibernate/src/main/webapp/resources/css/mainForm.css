@@ -1,0 +1,18 @@
+@charset "UTF-8";
+@import "colorBoard.css";
+* {
+	text-decoration: none;
+	justify-items: center;
+}
+/*--------------------------------*/
+section {
+    width: 500px;
+    height: 400px;
+    align-content: center;
+    background-color: var(--celeste--);
+    border-radius: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+section table tbody tr {
+	height: 50px;
+}

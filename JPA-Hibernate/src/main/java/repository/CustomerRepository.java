@@ -40,13 +40,14 @@ public class CustomerRepository {
 	}
 
 
-	public void delete(Customer customer) {
+	public void delete(long id) {
+		Customer customer = this.findById(id);
 		if(customer != null)
 			em.remove(customer);
 	}
 
 
-	public Customer findById(Long id) {
+	public Customer findById(long id) {
 		Customer customer = em.find(Customer.class, id);
 		return customer;
 	}

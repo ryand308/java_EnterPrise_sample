@@ -1,0 +1,37 @@
+@charset "UTF-8";
+@import "colorBoard.css";
+* {
+	text-decoration: none;
+	justify-items: center;
+}
+/*----------------------------*/
+section.wapper {
+	width: 400px;
+    height: 400px;
+    align-content: center;
+	background-color: var(--celeste--);
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.25);
+}
+
+section.wapper .btns {
+    display: flex;
+    height: 50px;
+    width: 150px;
+    text-align: center;    
+    border-radius: 30px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.25);
+    background: linear-gradient(-90deg, var(--onyx--), var(--feldgrau-));
+    transition: width 0.5s;
+    
+}
+
+section.wapper .btns a {
+    width: 100%;
+    align-content: center;
+    color: #fff;
+}
+
+section.wapper .btns:hover {
+	background: linear-gradient(90deg, var(--onyx--), var(--feldgrau-));
+	width: 120px;
+}

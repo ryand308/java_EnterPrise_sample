@@ -29,6 +29,16 @@ public class Customer implements Serializable {
 
 	public Customer() {
 	}
+	
+	
+	public Customer(long id, String country, String firstName, String lastName) {
+		super();
+		this.id = id;
+		this.country = country;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
 
 	public long getId() {
 		return this.id;

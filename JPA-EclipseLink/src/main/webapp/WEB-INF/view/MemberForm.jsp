@@ -22,10 +22,12 @@
 					<tr>
 						<th>Sex:</th>
 						<td>
-							<input type="radio" name="sex" value="F" checked/>Female<br/>
-							
-							<input type="radio" name="sex" value="M" />Male							
-							<!-- 接收 char 使用ascii -->	
+							<!-- input 使用 check 避免parameter 出現 null -->
+							<c:if test="${member.sex != 77}">
+								<input type="radio" name="sex" value="F" checked/>Female<br/>						
+								<input type="radio" name="sex" value="M" />Male							
+							</c:if>
+							<!-- 接收 char 使用ascii 77='M' 70='F'-->	
 							<c:if test="${member.sex == 77}">
 								<input type="radio" name="sex" value="F" />Female<br/>
 								<input type="radio" name="sex" value="M" checked/>Male
