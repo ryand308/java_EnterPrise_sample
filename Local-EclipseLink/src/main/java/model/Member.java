@@ -1,11 +1,19 @@
 package model;
 
-public class Member {
+import java.io.Serializable;
+
+public class Member implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	private int id;
+
 	private String name;
+
 	private char gender;
+
 	private String address;
+
 	private String phone;
 	public int getId() {
 		return id;
@@ -42,6 +50,6 @@ public class Member {
 		return "Member [id=" + id + ", name=" + name + ", gender=" + gender + ", address=" + address + ", phone="
 				+ phone + "]";
 	}
-	
-	
+
+
 }

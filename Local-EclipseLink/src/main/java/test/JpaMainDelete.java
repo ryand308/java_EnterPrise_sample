@@ -12,23 +12,24 @@ public class JpaMainDelete {
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("testLocalEclipseLink");
 		EntityManager em = emf.createEntityManager();
-		
+
 		EntityTransaction et = em.getTransaction();
-		
+
 		Member member = em.find(Member.class, 3);
-		
+
 		System.out.println("Delete: " + member);
-		
+
 		et.begin();
-		
-		if(member != null)
+
+		if(member != null) {
 			em.remove(member);
-		
+		}
+
 		et.commit();
-		
+
 		em.close();
 		emf.close();
-		
+
 	}
 
 }

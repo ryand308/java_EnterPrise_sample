@@ -1,7 +1,17 @@
 package model;
 
 import java.io.Serializable;
-import jakarta.persistence.*;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 
 /**
@@ -10,7 +20,7 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name="customers")
-@NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
+@NamedQuery(name="Customer.findAll", query="SELECT c.id, c.country, c.firstName, c.lastName FROM Customer c")
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,6 +37,10 @@ public class Customer implements Serializable {
 	@Column(name="last_name", length = 50)
 	private String lastName;
 
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "order_id", referencedColumnName = "order_id")
+	private Order order; // 變數名稱 決定：mappedBy = "order"
+	
 	public Customer() {
 	}
 	
@@ -72,11 +86,23 @@ public class Customer implements Serializable {
 		this.lastName = lastName;
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [id=" + id + ", country=" + country + ", firstName=" + firstName + ", lastName=" + lastName
-				+ "]";
+	public Order getOrder() {
+		return order;
 	}
 
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+
+	@Override
+	public String toString() {
+		return "[id=" + id + ", country=" + country + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", order=" + order + "]";
+	}
+
+
 	
+
+
 }

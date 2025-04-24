@@ -13,18 +13,18 @@ public class JpaMainUpdate {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("testLocalEclipseLink");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
-		
+
 		Member member = em.find(Member.class, 1);
-		
+
 		//-----------------Transaction--------------------------
 		System.out.println("Before: " + member);
-		
+
 		et.begin();
-		
-		member.setName("Ryan");			
-		
+
+		member.setName("Ryan");
+
 		et.commit();
-		
+
 		System.out.println("After: " + member);
 		em.close();
 		emf.close();

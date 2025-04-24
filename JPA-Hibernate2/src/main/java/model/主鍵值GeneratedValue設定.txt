@@ -1,0 +1,5 @@
+方式				使用資料庫				備註
+SEQUENCE	Oracle、PostgreSQL		要有對應的資料庫序列
+IDENTITY	MySQL					對應到 AUTO_INCREMENT
+TABLE		通用但效能差				用一張表來模擬序列
+AUTO		JPA 自動決定				不建議，容易誤判平台

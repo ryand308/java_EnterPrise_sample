@@ -1,29 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
-	<persistence-unit name="testLocalEclipseLink">
-		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>        
-
-        <!--很重要對 eclipseLink ，有註記 @Entity 都會選取：無法使用true<class>
-        <exclude-unlisted-classes>false</exclude-unlisted-classes>
-        -->
-			<!-- 指定外部的映射文件 -->
-         <mapping-file>META-INF/mapping.xml</mapping-file>
+<persistence version="3.0"
+	xmlns="https://jakarta.ee/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+	<persistence-unit name="testLocalEclipseLink" transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+			
+	         <mapping-file>META-INF/mapping.xml</mapping-file>
+			<!-- 指定外部的映射文件 
+			-->
 		
+        <!--很重要對 eclipseLink ，有註記 @Entity 都會選取：無法使用true<class> -->     
+         
 		<!-- 沒有 JNDI 使用 transaction-type="RESOURCE_LOCAL"-->
         <properties>
+			<!--  限制只掃描MySQL資料庫 
+			<property name="eclipselink.validation-only" value="true"/>
+			-->
+			<property name="eclipselink.target-database" value="MySQL"/>
+
             <property name="jakarta.persistence.jdbc.driver"   value="com.mysql.cj.jdbc.Driver"/>
-            <property name="jakarta.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/company?serverTimezone=UTC"/>
+            <property name="jakarta.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/company"/>
             <property name="jakarta.persistence.jdbc.user"     value="root"/>
             <property name="jakarta.persistence.jdbc.password" value="12345678"/>           
-			<!--  修先掃描MySQL資料庫 -->
-			<property name="eclipselink.target-database" value="MySQL"/>
-            <!-- 讓 EclipseLink 直接修改 DB -->
-            <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <!-- 讓 EclipseLink 直接修改 DB [create-tables, create-or-extend-tables, drop-and-create-tables, none]-->
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
             <property name="eclipselink.ddl-generation.output-mode" value="database"/>
-
+				<!-- [INFO, FINEST, WARNING] -->
+			<property name="eclipselink.logging.level" value="INFO" />
             <!-- 可選：輸出 DDL 到檔案 -->
             <property name="eclipselink.create-ddl-jdbc-file-name" value="create.sql"/>
             <property name="eclipselink.drop-ddl-jdbc-file-name" value="drop.sql"/>
+
+			<!--  **與hibernate 一樣，需要延遲 建立 JPA EntityManagerFactory；只能延遲建立，才能確保不錯誤的初始化-->
+            <property name="tomee.jpa.factory.lazy" value="true"/>
+            <!-- 關閉 TomEE 自動將 JPA 實體或 EntityManager 等整合進 CDI -->
+			<property name="tomee.jpa.cdi" value="false"/>
+			
+			<!-- logging 資訊的細部調整
+			<property name="eclipselink.logging.level" value="FINE" />
+			<property name="eclipselink.logging.thread" value="false" />
+			<property name="eclipselink.logging.session" value="false" />
+			<property name="eclipselink.logging.exceptions" value="false" />
+			<property name="eclipselink.logging.timestamp" value="false" />
+			-->
+			
         </properties>
 	</persistence-unit>
 </persistence>

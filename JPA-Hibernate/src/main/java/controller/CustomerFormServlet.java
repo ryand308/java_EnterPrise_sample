@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.CustomerService;
+import service.OrderService;
 
 /**
  * Servlet implementation class CustomerFormServlet
@@ -18,6 +19,7 @@ public class CustomerFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     @Inject
 	private CustomerService service;
+
 	private String id = null;
 
 	/**
@@ -26,6 +28,7 @@ public class CustomerFormServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		id = request.getParameter("update");
+
 		// control page; debug error of javaScript
 		if(id == null)
 			response.getWriter().append(service.idNullDeclare());
@@ -46,16 +49,13 @@ public class CustomerFormServlet extends HttpServlet {
 		String lastName = request.getParameter("lastName");
 		String country = request.getParameter("country");
 		
-		// test value
-		System.out.printf("first_name:%-10s, last_name:%-10s, country:%-10s%n", firstName, lastName, country);
-		
 		// save data
 		if( id != null) {
 			service.updateCustomer(id, country, firstName, lastName);
 			response.sendRedirect("http://localhost:8080/testHibernate/CustomerListServlet");
 		}
 		else if(service.addCustomer(country, firstName, lastName))
-			response.sendRedirect("http://localhost:8080/testHibernate/formSuccess.html");
+			response.sendRedirect("http://localhost:8080/testHibernate/formSuccess.html");		
 		else
 			response.sendRedirect("http://localhost:8080/testHibernate/formFailure.html");
 		

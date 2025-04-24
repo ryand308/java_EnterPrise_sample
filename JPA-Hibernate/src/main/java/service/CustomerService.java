@@ -8,13 +8,17 @@ import com.google.gson.Gson;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import model.Customer;
+import model.Order;
 import repository.CustomerRepository;
+import repository.OrderRepository;
 
 @ApplicationScoped
 public class CustomerService {
 
 	@Inject
 	private CustomerRepository repository;
+	@Inject
+	private OrderRepository orderRepository;
 	
 	public List<?> findAllCustomer() {	
 		
@@ -27,13 +31,26 @@ public class CustomerService {
 		
 		if(Stream.of(country, firstName, lastName).anyMatch(param -> param.trim().matches("")))
 			return false;
-		
+		//pojo
 		Customer customer = new Customer();
+		Order order = new Order();
+		
 		customer.setCountry(country);
 		customer.setFirstName(firstName);
-		customer.setLastName(lastName);
+		customer.setLastName(lastName);		
+		repository.add(customer); // 在新增物件後，會產生 id
 		
-		repository.add(customer);
+		long id = customer.getId();
+		// 使 customer & order 間的forign key 對應
+		if(orderRepository.findById(id) == null)
+			orderRepository.add(order);	
+		else
+			order.setId(id); //將資料 格式化
+//			order = orderRepository.findById(id); 獲取舊資料
+		
+		// OneToOne
+		repository.addOrder(id, order);
+		
 		return true;
 	}
 	
@@ -60,6 +77,14 @@ public class CustomerService {
 		repository.update(customer);
 		
 	}
+//-----------------------------One To One ------------------------------------------------
+	public void addRelationOrder( long id, Order order) {		
+		System.out.println("id: " + id + ", Order: " + order);
+		
+		repository.addOrder(id, order);	
+
+	}
+	
 //-----------------------------Json & JavaScript------------------------------------------------
 	
 	public StringBuilder findAllCustomerJson() {
@@ -87,14 +112,18 @@ public class CustomerService {
 	public StringBuilder findCustomerJson(String update) {
 		long id = Long.parseLong(update);
 		Gson gson = new Gson();
+		Customer customer = repository.findById(id);
+
+		customer.setOrder(null);// order 在 gson 轉換會出現exception
+
 		StringBuilder javaScript = new StringBuilder();
-		// 定義 javaScript 變數 "singleCustomer"
 		javaScript.append("<script>")
 				  .append("const singleCustomer = \'")
-				  .append(gson.toJson(repository.findById(id)) + "\'; ")
+				  .append(gson.toJson(customer) + "\'; ")
 				  .append("let customer = JSON.parse(singleCustomer); ")
 				  .append("</script>");
 		
 		return javaScript;
+
 	}
 }
