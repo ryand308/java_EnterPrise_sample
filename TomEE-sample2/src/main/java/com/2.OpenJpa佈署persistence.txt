@@ -1,0 +1,84 @@
+******************************
+***********OpenJpa************ 在 /WEB-INF/persistence.xml 新增
+******************************
+開頭標前 可以參考TomEE jap 官網配置
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+	// 放入下列標籤<tag>
+</persistence>
+
+*****************************************************************************************
+<!-- 使用的是內建 OpenJPA， provider對應TomEE libary/openjpa/內部類別(以下內容)。 -->
+<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+		
+*****************************************************************************************
+
+<persistence-unit name="myPersistenceUnit" transaction-type="JTA or RESOURCE_LOCAL 舉例只放置其一">
+
+建議使用 transaction-type="JTA"，輕量化 JPA 配置 使 交易(Transaction) 交由jta(java transaction api)自動化控制
+
+*****************************************************************************************
+在server.xml 有配置DB(JNDI) 的情況下 配置data-source tag
+
+建議使用
+transaction-type="JTA"
+<jta-data-source>jdbc/jndi</jta-data-source>
+.<jta-data-source>：用於容器管理交易（例如在 EJB、@Transactional 裡）。
+
+或者是
+可能在手動開發時？
+
+transaction-type="RESOURCE_LOCAL"；會使用 在沒有JNDI 的配置下
+<non-jta-data-source>jdbc/jndi</non-jta-data-source>
+.<non-jta-data-source>：若用容器的資料來源，但交易交由應用程式自己處理（RESOURCE_LOCAL）。混合型設計，但不常用
+
+*****************************************************************************************
+還有種方法可以將database Resource 直接設定到persistence.xml 內部
+
+<!--transaction-type="RESOURCE_LOCAL" 配置JDBC-->
+<properties>
+	  <!-- javax.persistence.jdbc.xxx是固定名稱；屬性名稱是 JPA 標準 -->
+      <property name="jakarta.persistence.jdbc.driver"   value="com.mysql.cj.jdbc.Driver"/>
+      <property name="jakarta.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/test?serverTimezone=UTC"/>
+      <property name="jakarta.persistence.jdbc.user"     value="root"/>
+      <property name="jakarta.persistence.jdbc.password" value="12345678"/>
+      擇一種因為是一樣的(推薦選下)
+      <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/test?serverTimezone=UTC"/>
+      <property name="openjpa.ConnectionUserName" value="root"/>
+      <property name="openjpa.ConnectionPassword" value="12345678"/>            
+      <property name="openjpa.ConnectionDriverName" value="com.mysql.cj.jdbc.Driver"/>      
+      
+      <!-- 不使用加載時強化和編譯時強化，使用運行時Unenhanced；Resource_local 使用，**JTA** 管理可省略-->
+	   <property name="openjpa.ClassLoadEnhancement" value="false" />
+	   <property name="openjpa.DynamicEnhancementAgent" value="false" />
+	   <property name="openjpa.RuntimeUnenhancedClasses" value="supported" />
+<\properties>
+
+DaoImpl 使用 methods of EntityManger；在EntityManger 完成Persistence unit，所以不需要額外connection database;
+******************************************************************************************
+
+<properties>
+	<!-- 自動建立表 -->
+    <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction='add')" />            
+    <!-- 記錄 SQL -->
+    <property name="openjpa.Log" value="SQL=TRACE"/>
+</properties>
+
+1.buildSchema(SchemaAction='add')：會 自動建立新的表，但不修改已存在的結構。
+
+2.buildSchema(SchemaAction='drop,add')：會 刪除舊表並重新建立（不建議在正式環境使用）。
+
+3.buildSchema(SchemaAction='refresh')：會 更新現有的表（新增欄位，但不刪除舊欄位）。
+
+4.buildSchema(ForeignKeys=true) 可跟上面同步使用像是，buildSchema(SchemaAction='add', ForeignKeys=true) 等
+
+5."none" 關閉功能。
+******************************************************************************************
+springframework-hibernate, eclipseLink...等都有此配置，而TomEE 內部已有的裝置eclipseLink and openJpa；其餘可下載.jar 或 maven 配置。
+
+******************************************************************************************
+
+網路資源 google search: TomEE jpa 可以找到 persistence.xml 範例
+網址：
+https://tomee.apache.org/tomcat-jpa.html
+
+

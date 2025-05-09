@@ -1,0 +1,3 @@
+
+
+所有導入 public interface StudentsDao(舉例) 的方式都可用 @EJB

@@ -1,0 +1,15 @@
+基本應用為 SHA-256
+
+推薦優先順序（2025 年仍有效）：
+演算法	推薦程度	原因
+Argon2	⭐⭐⭐⭐	（最高）	最新、最安全、支援抗記憶體攻擊（memory-hard）
+bcrypt	⭐⭐⭐	廣泛支援，成熟穩定，安全但較老
+PBKDF2	⭐⭐		可接受，但效率差於 bcrypt 和 Argon2（可被加速破解）
+scrypt	⭐⭐⭐	安全也抗記憶體破解，但 Java 支援度較差
+
+https://password4j.com/
+<dependency>
+    <groupId>com.password4j</groupId>
+    <artifactId>password4j</artifactId>
+    <version>1.8.2</version>
+</dependency>

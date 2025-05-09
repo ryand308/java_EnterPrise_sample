@@ -1,0 +1,90 @@
+1.版本：
+
+EJB @Stateless/@Stateful 確實是在 Service tier，原本就是將 商業邏輯、資料庫處理 寫在 Servlet tier；
+而在有EntityManager 的條件下，自然省略對 DAO tier 的建立，直接使用 EntityManager 下的CRUD 方法。
+
+使用 JDBC 時所用
+
+[Servlet 層]   ->        [Service 層]    ->     [DAO 層]
+(@WebServlet)            (@Stateless)      (@Dependent)=JDBC
+----------------------------------------------------------------------------------
+在佈署persistence.xml後 受JPA Provider管理
+                               
+[Servlet 層]   ->  {     [Service 層]  ->     JPA[DAO 層]            } = 融合層（merged layer）  ->  [DAO 層] 省略
+(@WebServlet)           (@Stateless)     (@Dependent)=EntityManager                            JDBC(不寫)
+
+會稱為 "偽[Service層]" 是因為 @EntityManager 實際作用是在@Stateless tier，只是藉由 CDI 注入依賴。 
+---------------------------------------------------------------------------------------
+尚未了解 EJB 的特性與 CDI 注入依賴間的關係；從而瞭解到@EJB 不只是只能置入Servlet tier。
+
+
+[Service 層] + JPA[DAO 層]  = 「合併 Service/DAO 職責的 Service 層」
+
+這樣變成了一個“[融合層]”，因為它不只是做"業務邏輯"，還包含了"資料庫操作"，導致職責不清晰。
+
+*****************************************************************************************************
+*****************************************************************************************************
+
+2.版本：
+
+[Servlet 層]      ->  [Service 層]         ->  [DAO 層]
+(@WebServlet)         (@ApplicationScoped)     (@Stateless)
+
+---------------------------------------------------------------------------
+Spring boot:
+
+[Servlet 層]      ->  [Service 層]         ->  [DAO 層]
+@Controller           @Service                 @Repository
+*****************************************************************************************************
+*****************************************************************************************************
+[DAO 層]
+(@Stateless/@Stateful/@Dependent)
+
+-----------------------------------------------------------------------------------------------
+@Stateless
+public class StudentJpaDaoImpl {
+
+    @PersistenceContext
+    private EntityManager em;
+
+    public void doSomething() {
+        // 資料庫操作
+    }
+}
+
+*****************************************************************************************************
+[Service 層]
+(@ApplicationScoped/@RequestScoped)
+負責 業務邏輯 (Business Logic)，例如驗證數據、計算、處理請求
+
+1.@ApplicationScoped (全應用範圍)，負責商業邏輯 @ApplicationScoped (建議) ；近似於Spring boot 的@Serivce
+2.@RequestScoped (請求範圍)，如果 Service 層需要在 每個請求期間擁有新的實例（例如處理一些請求狀態的邏輯）
+
+-----------------------------------------------------------------------------------------------
+@ApplicationScoped // 或 @RequestScoped 取決於需求
+public class StudentService {
+    
+    @EJB
+    private StudentJpaDaoImpl studentDao; // DAO 層被標註為 @Stateless，所以可以用 @EJB
+
+    public void someBusinessLogic() {
+        studentDao.doSomething();
+    }
+}
+
+*****************************************************************************************************
+[Servlet 層]
+(@WebServlet)
+
+-----------------------------------------------------------------------------------------------
+@WebServlet("/studentServlet")
+public class StudentServlet extends HttpServlet {
+
+    @Inject // 用 CDI 來管理 Service 層
+    private StudentService studentService;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        studentService.someBusinessLogic();
+        response.getWriter().println("Success");
+    }
+}

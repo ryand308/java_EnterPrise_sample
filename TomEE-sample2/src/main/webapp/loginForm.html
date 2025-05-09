@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登入頁面-login page</title>
+</head>
+<body>
+	<style>
+* {
+	margin: 8px;
+}
+</style>
+
+	<form action="DispatchServlet" method="post">
+		<table>
+			<tr>
+				<td colspan="2" align="center"><h2>登入-Login</h2></td>
+			</tr>
+			<tr>
+				<td>使用名稱：</td>
+				<td><input type="text" name="username"></td>
+			</tr>
+			<tr>
+				<td>密碼：</td>
+				<td><input type="password" name="password"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="提交"> <input
+					type="reset" value="重填"></td>
+			</tr>
+		</table>
+
+	</form>
+</body>
+</html>

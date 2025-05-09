@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="resource/css/contactEmail.css">
+</head>
+<body>
+	
+	<div class="header">
+		<app-header></app-header>
+	</div>
+	
+	<section>
+		<h2>聯絡信箱</h2>
+		<form action="ContactEmailServlet" method="POST">
+			<div class="contact-col" id="enter-message">
+				<input type="text" name="name" placeholder="暱稱" required>
+				<input type="text" name="subject" placeholder="主旨" required>
+				<textarea rows="8" name="body" placeholder="內容" required></textarea>
+				
+				<div>
+					<button type="submit" class="btn">發送</button>
+					<button type="reset">清空</button>
+				</div>
+			</div>
+		</form>
+	</section>
+
+	<script type="text/javascript" src="resource/js/elParamWebComponent.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+@charset "UTF-8";
+.log {
+	background-color:#F5F5DC;
+	width:50%;
+    min-height: 150px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.log .name {
+	text-align: right;
+}

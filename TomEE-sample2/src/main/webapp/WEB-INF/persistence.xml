@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0"
+	xmlns="https://jakarta.ee/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+	<!-- 非 JTA 管理的數據源，適用於 transaction-type="RESOURCE_LOCAL" -->
+	<persistence-unit name="myPersistenceUnit" transaction-type="JTA">
+	
+		<!-- 使用的是內建 OpenJPA， provider對應TomEE libary/openjpa/內部類別(以下內容)。 -->
+		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+		<jta-data-source>jdbc/jndi</jta-data-source>
+
+		<class>com.model.entity.Students</class>
+		<class>com.model.entity.EmployeeLuv2</class>
+		<class>login.model.entity.User</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<!-- true 有<class>才會被管理；false 有@Entity 都會管理 -->
+		
+		<!-- 配置 JPA數據庫屬性 -->
+		<properties>
+			<!-- 自動sql生成表 -->
+			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction='add')" />
+			
+			<!-- 這裡可能需要指定 JPA Provider，如 OpenJPA 或 Hibernate。強制使用 JTA 交易 @Transactional 的使用；內建UserTransaction-->
+			<property name="openjpa.TransactionMode" value="managed" />
+		</properties>
+	</persistence-unit>
+</persistence>

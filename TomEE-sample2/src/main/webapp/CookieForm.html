@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="resource/css/cookieForm.css">
+</head>
+<body>
+	<!-- code for .jsp encoding ；.jsp include 是編譯時期(compiler time)導入，filter 不對它造成影響-->
+	<!-- <%@ page pageEncoding="UTF-8"%> html註解可影響.jsp檔-->
+
+	<form action="http://localhost:8080/ServletBasic/CookieServlet" method="post">
+		<fieldset>
+			<legend>留言板：</legend>
+			<div>
+				<label for="fname">First name:</label> <input type="text"
+					name="fname">
+			</div>
+			<div>
+				<label for="lname">Last name:</label> <input type="text"
+					name="lname">
+			</div>
+			<textarea rows="5" cols="50" name="msg"></textarea>
+			<input type="submit" value="送出" class="sub">
+		</fieldset>
+	</form>
+</body>
+</html>

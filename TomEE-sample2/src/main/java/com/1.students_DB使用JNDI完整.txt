@@ -1,0 +1,93 @@
+********************************************************************************************************************************
+
+補充：
+
+@Resource(name = "jdbc/jndi")
+private DataSource dataSource;
+
+放入在 Servlet、service 的差異  
+
+1.放在 Servlet tier 否則會找不到 Resource；在server.xml 未配置的情況下，將 Resource 配置在 context.xml
+2.滿足 Tomcat 的作用範圍達到全域資源 EJB 才能作用，才可使用至 service tier。Resource 配置在 server.xml 而 context.xml 取 ResouceLink
+
+原因：
+----------------------------------------------------------------------------------------------------------------------------------------
+		配置位置							|			作用範圍						|						適用情境
+context.xml (META-INF/context.xml)		|只對該 Web 應用生效 (<Context> 限定)	|適用於 獨立 Web 應用程式，不同應用可以有不同的 JNDI 設定
+server.xml (<GlobalNamingResources>)	|整個 Tomcat 伺服器的全域資源	適用於 		|多個應用共用 JNDI 資源，如資料庫連線池
+----------------------------------------------------------------------------------------------------------------------------------------
+
+*************************************Servers的配置******************************************************************************
+step 1.
+server.xml ：
+
+<GlobalNamingResources>
+	<Resource auth= "Container"
+    		  driverClassName= "com.mysql.cj.jdbc.Driver"
+    		  maxIdle= "10" maxTotal= "100" 
+    		  name= "jdbc/jndi"
+    		  global = "jdbc/jndi"
+    		  password= "12345678"
+    		  type= "javax.sql.DataSource"
+    		  url= "jdbc:mysql://localhost:3306/test"
+    		  username= "root"/>
+    		  
+ <!--  omit 省略 原內部文件-->
+ 
+</GlobalNamingResources>
+
+context.xml ：
+
+<Context>
+<!--  omit 省略 原內部文件-->
+
+	<ResourceLink auth= "Container"	    		  
+	    		  name= "jdbc/jndi"
+	    		  global = "jdbc/jndi"	    		  
+	    		  type= "javax.sql.DataSource" />    		  
+	    		
+</Context>
+
+*************************************DaoImpl的配置******************************************************************************
+step 2.
+Dao implements 要寫 naming 這樣就可以不用從Servlet 再傳到DAO
+
+@Resource(name = "jdbc/jndi")	
+private DataSource dataSource;	
+
+[DAO層] 屬於 EJB 控管下的 @Stateless or @Stateful 可以直接使用 @Resource
+
+*************************************Listener的配置****************************************************************************
+step 3.
+Listener:void contextDestroyed()方法 伺服器結束要釋放的是Driver connection 的資源
+@WebListener
+public class DbDeregisterListener implements ServletContextListener {
+
+	//伺服器關閉後，系統再執行
+    public void contextDestroyed(ServletContextEvent sce)  { 
+        // 有在 Servers 寫 JNDI 都要配置driver.deregister
+    	Enumeration<Driver> drivers = DriverManager.getDrivers();
+    	Driver driver = null;
+    	
+    	while(drivers.hasMoreElements()) {
+    		try {
+    			driver = drivers.nextElement();
+    			DriverManager.deregisterDriver(driver);
+    		} catch(SQLException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	//Tomcat 不會自動關閉這個執行緒，所以需要手動關閉它，避免記憶體洩漏。
+    	AbandonedConnectionCleanupThread.checkedShutdown();
+    	System.out.println("mysql success final.");
+    }    
+	
+}
+********************************************************************************************************************************
+********************************************************************************************************************************
+配置補充：
+1.Tomcat 在關閉時，會嘗試清除所有 GlobalNamingResources 註冊的 JNDI 資源。
+
+2.若只在 context.xml 定義 <Resource>，Tomcat 可能無法在全域層級找到這個 JNDI，導致無法釋放資源，拋出 NameNotFoundException。
+
+解決方案：應該在 server.xml 定義 GlobalNamingResources，並在 context.xml 參考這個資源！
