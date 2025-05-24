@@ -3,7 +3,7 @@
 	xmlns="https://jakarta.ee/xml/ns/jakartaee"
 	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
 	version="5.0">
-	<display-name>ServletBasic</display-name>
+	<display-name>ServletBasic2</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -13,7 +13,59 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 	
+	<!-- 新增 使用者驗證 方式-->
+	<!-- 建立兩組 安全機制 -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>HTTPS</web-resource-name>
+			<url-pattern>/index.html</url-pattern>							
+		</web-resource-collection>
+		<user-data-constraint>
+       		<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+       	</user-data-constraint> 
+	</security-constraint>
 
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Login</web-resource-name>
+			<url-pattern>/LoginServlet</url-pattern>							
+		</web-resource-collection>
+		<auth-constraint>
+        	<role-name>USER</role-name>
+        	<role-name>Admin</role-name>       		   	
+       	</auth-constraint>
+       	<user-data-constraint>
+       		<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+       	</user-data-constraint>
+	</security-constraint>
+	
+ 	<security-role>
+		<role-name>Admin</role-name>    	    	
+	</security-role>
+	<security-role>		
+    	<role-name>USER</role-name>    	    	
+	</security-role>
+
+	<!-- basic 基本式 (無法使用登出)
+		<login-config>
+	    	<auth-method>BASIC</auth-method>    	
+		</login-config>
+	-->
+	
+	<!-- from 表單式 -->
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/login_page/loginForm.html</form-login-page>
+			<form-error-page>/login_page/loginForm-fail.html</form-error-page>			
+		</form-login-config>		
+	</login-config>
+	
+	<!-- 設定session -->
+	<session-config>
+	  <session-timeout>30</session-timeout> <!-- 單位是分鐘 -->
+	</session-config>
+	
 	<!-- 新增 servlet 物件 -->
 	<servlet>
 		<servlet-name>begin</servlet-name>
@@ -49,7 +101,7 @@
 	<!-- 新增 filter 物件 -->
 	<filter>
 		<filter-name>encode</filter-name>
-		<filter-class>com.filter.EncodeFilter</filter-class>
+		<filter-class>com.filter.EncodeFilter</filter-class>		
 		<async-supported>true</async-supported>
 		<init-param>
 			<param-name>code</param-name>

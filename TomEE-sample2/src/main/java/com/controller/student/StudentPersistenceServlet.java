@@ -25,6 +25,11 @@ public class StudentPersistenceServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		if(request.getUserPrincipal() == null) {
+			response.sendRedirect("http://localhost:8080/ServletBasic2/NoActiveServlet");
+			return;		
+		}
+		
 		//test transaction
 		service.testBMT();
 		
@@ -33,7 +38,7 @@ public class StudentPersistenceServlet extends HttpServlet {
 		request.setAttribute("stu1", results);
 		
 		//output
-		request.getRequestDispatcher("./WEB-INF/view/studentSqlPersistence.jsp").forward(request, response);
+		request.getRequestDispatcher("./WEB-INF/view/studentSqlPersistence.jsp").include(request, response);
 		
 	}
 

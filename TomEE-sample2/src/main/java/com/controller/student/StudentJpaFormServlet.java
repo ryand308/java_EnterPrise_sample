@@ -21,9 +21,12 @@ public class StudentJpaFormServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		if(request.getUserPrincipal() == null) {
+			response.sendRedirect("http://localhost:8080/ServletBasic2/NoActiveServlet");
+			return;
+		}
 		// output
-		request.getRequestDispatcher("./studentJpaForm.jsp").include(request, response);
+		request.getRequestDispatcher("./WEB-INF/view/studentJpaForm.jsp").include(request, response);
 	}
 
 

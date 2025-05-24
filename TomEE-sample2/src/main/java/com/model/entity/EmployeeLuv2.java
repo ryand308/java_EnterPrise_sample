@@ -9,9 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-/**
- * Session Bean implementation class EmployeeLuv2
- */
 @Entity // 實體的物件
 @Table(name = "employeesofluv2") // 資料庫的 table.name
 public class EmployeeLuv2 implements Serializable{

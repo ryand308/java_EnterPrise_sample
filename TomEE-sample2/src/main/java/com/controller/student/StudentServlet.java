@@ -23,6 +23,11 @@ public class StudentServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		if(request.getUserPrincipal() == null) {
+			response.sendRedirect("http://localhost:8080/ServletBasic2/NoActiveServlet");
+			return;
+		}
+		
 		request.setAttribute("stu", service.searchAll());
 		// output
 		request.getRequestDispatcher("./WEB-INF/view/studentSql.jsp").include(request, response);		

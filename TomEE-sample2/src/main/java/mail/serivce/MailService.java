@@ -1,4 +1,4 @@
-package mail;
+package mail.serivce;
 
 import java.util.Properties;
 import java.util.stream.Stream;
@@ -18,8 +18,8 @@ public class MailService {
 	
 	private String from = "QQC@demomailtrap.com"; // MailTrap mailServer( 自定義信箱 )
 	
-	public void confirmEmail( String to, String confirmUrl) {
-		if(Stream.of(to, confirmUrl).anyMatch(empty -> empty.trim().matches("")))
+	public void confirmEmail( String to, String account , String token) {
+		if(Stream.of(to, account, token).anyMatch(empty -> empty.trim().matches("")))
 			return;
 		
 		// to: 將信件送給建立者確認
@@ -34,6 +34,13 @@ public class MailService {
             // 設定郵件標題
             message.setSubject("會員註冊確認信");
             // 設定郵件內容讓使用者點選連結（confirmUrl）進行確認
+            StringBuilder confirmUrl = new StringBuilder();
+            confirmUrl.append("<a href=\"")
+            		  .append("http://localhost:8080/ServletBasic2/EmailServlet")
+            		  .append("?account=" + account)
+	            	  .append("&token=" + token)
+	            	  .append("\" >信箱確認</a>");
+                      
             message.setContent("請點選以下連結進行確認：\n" + confirmUrl, "text/html; charset=utf-8");
 			
             // 傳送郵件

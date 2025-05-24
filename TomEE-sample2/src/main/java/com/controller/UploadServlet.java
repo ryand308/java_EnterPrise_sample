@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.HttpConstraint;
 import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.ServletSecurity;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,7 +34,7 @@ public class UploadServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		getServletContext().getRequestDispatcher("/component/header.html").include(request, response);
-		getServletContext().getRequestDispatcher("/component/uploadFile.html").include(request, response);
+		getServletContext().getRequestDispatcher("/WEB-INF/view/uploadFile.html").include(request, response);
 	}
 
 

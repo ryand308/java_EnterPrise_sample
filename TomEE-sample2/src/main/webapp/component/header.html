@@ -58,6 +58,30 @@ ul.nav-links li a{
   left: 50%;
   transform: translateX(-50%);
 }
+div.nav_log {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	right: 6%;
+}
+a.logout, a.create {
+	color: white;
+    background-color: var(--footer-background);
+    height: 50px;
+    width: 100px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+a.logout:hover, a.create:hover {
+	box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+@media(max-width: 990px) {
+	div.nav_log {
+		display: none;
+	}	
+}
 </style>
 	<div class="nav-header">
 		<ul class="nav-links">
@@ -66,6 +90,10 @@ ul.nav-links li a{
 		    <li class="center"><a href="#">非關聯式資料</a></li>
 		    <li class="center"><a href="#">關聯式資料</a></li>
 		</ul>
+		<div class="nav_log">
+			<a class="create" href="http://localhost:8080/ServletBasic2/JavaUserCreateServlet">創建</a>
+			<a class="logout" href="http://localhost:8080/ServletBasic2/LogoutServlet">登出</a>
+		</div>
 	</div>
     
 </body>

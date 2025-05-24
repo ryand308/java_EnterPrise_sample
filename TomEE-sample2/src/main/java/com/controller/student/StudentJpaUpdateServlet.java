@@ -23,7 +23,12 @@ public class StudentJpaUpdateServlet extends HttpServlet {
     private String update = null;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		if(request.getUserPrincipal() == null) {
+			response.sendRedirect("http://localhost:8080/ServletBasic2/NoActiveServlet");
+			return;
+		}
+		
 		// get Parameter
 		update = request.getParameter("update");
 		
@@ -31,7 +36,7 @@ public class StudentJpaUpdateServlet extends HttpServlet {
 		if(update != null)
 			request.setAttribute("student", service.findStudent(update));
 		else
-			response.sendRedirect("http://localhost:8080/ServletBasic/StudentPersistenceServlet"); //防止無id 更新
+			response.sendRedirect("http://localhost:8080/ServletBasic2/StudentPersistenceServlet"); //防止無id 更新
 			
 		// output
 		request.getRequestDispatcher("./WEB-INF/view/studentJpaUpdate.jsp").include(request, response);
@@ -54,7 +59,7 @@ public class StudentJpaUpdateServlet extends HttpServlet {
 		service.updateStudent(studentId, name, group, score, club, id);
 		
 		// Redirect
-		response.sendRedirect("http://localhost:8080/ServletBasic/StudentPersistenceServlet");
+		response.sendRedirect("http://localhost:8080/ServletBasic2/StudentPersistenceServlet");
 	}
 
 }

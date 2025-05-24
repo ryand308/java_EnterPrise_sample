@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<section>
+		<form action="AddUserServlet" method="post">
+			<h2>新增帳號</h2>
+			<table>				
+				<tbody>
+					<tr>
+						<td>使用者名稱：</td>
+						<td><input type="text" name="username" required /></td>
+					</tr>
+					<tr>
+						<td>帳號：</td>
+						<td><input type="text" name="account" pattern="\w*" required /></td>
+					</tr>
+					<tr>
+						<td>密碼：</td>
+						<td><input type="password" name="password" required /></td>
+					</tr>
+					<tr>
+						<td>確認密碼：</td>
+						<td><input type="password" name="check" required /></td>
+					</tr>
+					<tr>
+						<td>電子信箱：</td>
+						<td><input type="text" name="email" required /></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" value="新增"> <input
+							type="reset" value="重製"></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</section>
+</body>
+</html>

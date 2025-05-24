@@ -27,6 +27,12 @@ public class EmployeeLuv2Servlet extends HttpServlet {
     private EmployeeServiceStateless eService2;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getUserPrincipal() == null) {
+			response.sendRedirect("http://localhost:8080/ServletBasic2/NoActiveServlet");
+			return;
+		}
+		
 		//DB 資料掛載在ServletContext 的 session；只能透過Servlet獲取
 		if(DataBaseResource.DB != null) {
 			DataSource ds = (DataSource)request.getServletContext().getAttribute(DataBaseResource.DB);
@@ -38,7 +44,7 @@ public class EmployeeLuv2Servlet extends HttpServlet {
 
 		request.setAttribute("emp", lists);
 		
-		request.getRequestDispatcher("./WEB-INF/view/employeeLuv2sql.jsp").forward(request, response);
+		request.getRequestDispatcher("./WEB-INF/view/employeeLuv2sql.jsp").include(request, response);
 		
 		
 	}

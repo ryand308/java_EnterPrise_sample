@@ -27,8 +27,11 @@ public class EmployeeLuv2FormServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		
+		if(request.getUserPrincipal() == null)
+			response.sendRedirect("http://localhost:8080/ServletBasic2/NoActiveServlet");
+		
 		// output
-		request.getRequestDispatcher("./employeeForm.jsp").forward(request, response);
+		request.getRequestDispatcher("./WEB-INF/view/employeeForm.jsp").include(request, response);
 	}
 
 	

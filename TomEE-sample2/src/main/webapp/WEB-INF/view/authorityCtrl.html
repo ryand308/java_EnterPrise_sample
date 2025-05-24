@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<style>
+/*internal*/
+:root {
+	--header-background: #70CAD1;
+	--hero-background: #CAEDFF;
+	--footer-background: #3E517A;
+}
+div.nav_ctrl {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+}
+ a.auth {
+ 	color: white;
+    background-color: var(--footer-background);
+    height: 50px;
+    width: 100px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+ @media(max-width: 990px) {
+	div.nav_ctrl {
+		display: none;
+	}	
+}
+</style>
+
+<!-- 
+<c:if test="${isAdmin}"></c:if>
+<c:if test="${role}"></c:if>	
+ -->
+	<div class="nav_ctrl">	
+		<a class="auth" href="http://localhost:8080/ServletBasic2/JavaRoleConfirmServlet">控制台</a>			
+		<a class="auth" href="http://localhost:8080/ServletBasic2/LoginServlet">登入</a>						
+	</div>
+	
+</body>
+</html>

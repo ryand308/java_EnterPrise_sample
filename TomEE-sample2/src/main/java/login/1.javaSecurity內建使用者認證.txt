@@ -1,0 +1,84 @@
+***********
+* web.xml *
+***********
+<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Login</web-resource-name>
+			<url-pattern>/*</url-pattern>					
+		</web-resource-collection>
+		
+		<auth-constraint>
+        	<role-name>USER</role-name>
+        	<role-name>Admin</role-name>       		   	
+       	</auth-constraint> 
+       	      	 
+</security-constraint>
+
+<security-role>
+	<role-name>Admin</role-name>    	    	
+</security-role>
+<security-role>		
+	<role-name>USER</role-name>    	    	
+</security-role>
+
+***************************************************
+1. <web-resource-name> 自己命名
+2. <url-pattern> 作用的網頁
+3. <role-name> 自己定義；要與database role 一致
+***************************************************
+--------------------------------------------------------------------------------
+
+**************
+* server.xml *
+**************
+<Realm className="org.apache.catalina.realm.DataSourceRealm"
+				   dataSourceName="jdbc/jndi"
+				   				   				    
+				   userTable="j_users" userNameCol="user_name" userCredCol="password"
+				   userRoleTable="j_roles" roleNameCol="role_name">
+				   
+				   <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler"
+                       algorithm="MD5"
+                       encoding="UTF-8"/>
+</Realm>
+
+**************************************
+1.dataSourceName  使用的 Resource 定義database (要懂@Resource;JNDI)
+2.userTable,userRoleTable 就是database 的table_name; Tomcat 伺服器定義的用法
+3.userNameCol, userCredCol 是 userTable 的 statement;可額外新增，基本要有，"user_name"內的名稱跟database 一致。
+4.roleNamecol              是 userRoleTable 的 statement;同上述。
+
+5.<CredentialHandler> 算是加密機制，將輸入的密碼自動轉換
+
+*************************************
+參考網頁(tomcat)：
+1.https://tomcat.apache.org/tomcat-8.5-doc/realm-howto.html#Digested_Passwords
+2.https://tomcat.apache.org/tomcat-9.0-doc/config/credentialhandler.html
+*************************************
+備註：
+<Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
+內建的，可以將登入者資料寫在server 的 
+
+tomcat-users.xml
+
+<role rolename="USER"/>
+   <user username="alice" password="1234" roles="USER"/>
+---------------------------------------------------------------------------------------
+**************
+*  database  *
+**************
+
+create table users (
+  user_name         varchar(15) not null primary key,
+  password         varchar(15) not null
+);
+
+create table user_roles (
+  user_name         varchar(15) not null,
+  role_name         varchar(15) not null,
+  primary key (user_name, role_name)
+);
+
+INSERT INTO `test`.`j_users` (`user_name`, `password`) VALUES ('first', '{MD5}tZxnvxlqR1gZHkL3ZnDOug==');
+
+如果<CredentialHandler> 是用 algorithm="MD5" 那麼密碼前面要加{MD5} 

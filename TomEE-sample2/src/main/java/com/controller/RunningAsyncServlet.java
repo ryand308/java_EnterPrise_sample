@@ -27,7 +27,7 @@ public class RunningAsyncServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//功能為使用非同步技術分離處理 request 和 response 的 thread
-		
+
 		// output
 		response.getWriter().append("<h3>Request async Thread 1: </h3>")
 							.append("<h3>Name: " + Thread.currentThread().getName() +"<br/>")

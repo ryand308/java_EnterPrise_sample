@@ -20,7 +20,11 @@ public class SessionTestListener implements HttpSessionListener {
 
 
     public void sessionCreated(HttpSessionEvent se)  { 
-         // TODO Auto-generated method stub
+    	Enumeration<String> total = se.getSession().getAttributeNames();
+    	
+    	while(total.hasMoreElements())
+    		System.out.println("建立屬性：" + total.nextElement());
+    
     }
 
 
@@ -29,7 +33,7 @@ public class SessionTestListener implements HttpSessionListener {
 		Enumeration<String> total = se.getSession().getAttributeNames();
     	
     	while(total.hasMoreElements())
-    		System.out.println("屬性：" + total.nextElement());
+    		System.out.println("刪除屬性：" + total.nextElement());
     }
 	
 }

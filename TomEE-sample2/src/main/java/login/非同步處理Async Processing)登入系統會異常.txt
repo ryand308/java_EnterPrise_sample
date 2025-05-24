@@ -1,0 +1,7 @@
+
+遇到的問題，看起來不像是 asyncSupported = true 本身的錯誤導致例外，
+而是由於 非同步處理（Async Processing）執行流程不當，導致頁面內容被「重複寫出」或「重複處理」。
+
+ Filter 或 Servlet 兩次參與輸出流程
+如果你在 Filter 和 Servlet 兩邊都設定了 asyncSupported = true，
+而 Filter 中也對 response 做了處理（例如 chain.doFilter() 被呼叫兩次、不當緩衝處理等），就會發生重複輸出的現象。

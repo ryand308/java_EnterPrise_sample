@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,9 @@
 	<!-- hero -->
 	<div class="hero">
 		<h1>填寫完畢</h1>
-		<a href="${cookie.back.value}">回表單</a>
+		<c:if test="${cookie.back.value != null}">
+			<a href="${cookie.back.value}">回表單</a>
+		</c:if>
 	</div>
 	
 </body>

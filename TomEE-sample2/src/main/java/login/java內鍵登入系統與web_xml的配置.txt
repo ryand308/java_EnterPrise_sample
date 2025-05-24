@@ -1,0 +1,22 @@
+<!-- 新增 使用者驗證 方式-->	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>LoginTest</web-resource-name>
+			<url-pattern>/*</url-pattern>       <!-- 作用在 url pattern -->			
+		</web-resource-collection>
+		<auth-constraint>
+        	<role-name>USER</role-name>
+        	<role-name>Admin</role-name>       		   	
+       	</auth-constraint>       	 
+	</security-constraint>
+	
+	
+	<!-- from 表單式 -->
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/login_page/loginForm.html</form-login-page>
+			<form-error-page>/login_page/loginForm-fail.html</form-error-page>			
+		</form-login-config>		
+	</login-config>
+	

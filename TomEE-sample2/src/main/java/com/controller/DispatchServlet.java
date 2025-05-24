@@ -26,7 +26,8 @@ public class DispatchServlet extends HttpServlet {
 		
 		//-------------output--------------------
 		PrintWriter out = response.getWriter();
-		out.println("welcome servlet");
+		System.out.println(request.isUserInRole("Admin"));
+		out.println("welcome servlet" + "<br/>" + request.getUserPrincipal());
 		
 		out.close();
 	}
@@ -45,7 +46,7 @@ public class DispatchServlet extends HttpServlet {
 		String password = request.getParameter("password");
 				
 		
-		if(username.equals("admin") && password.equals("1234")) {			
+		if(username.equals("alice") && password.equals("1234")) {			
 			doGet(request, response);			
 		}
 		else {//false (在/DispatchServlet 合併 LoginForm.html )			
@@ -54,7 +55,7 @@ public class DispatchServlet extends HttpServlet {
 			RequestDispatcher rd0 = request.getRequestDispatcher("component/error.html");
 			rd0.include(request, response);
 			// 合併
-			RequestDispatcher rd1 = request.getRequestDispatcher("/loginForm.html");
+			RequestDispatcher rd1 = request.getRequestDispatcher("/login_page/loginTest.html");
 			rd1.include(request, response);
 			
 		}

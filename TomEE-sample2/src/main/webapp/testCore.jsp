@@ -114,7 +114,7 @@
 		</tr>
 		<tr>
 			<td>LifecycleServlet</td>
-			<td><c:import url="http://localhost:8080/ServletBasic/LifecycleServlet"></c:import></td>
+			<td><c:import url="http://localhost:8080/ServletBasic2/LifecycleServlet"></c:import></td>
 		</tr>
 		<tr>
 			<th colspan="2"><h2>9. c:url</h2></th>

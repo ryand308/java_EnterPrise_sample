@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登入頁面-login page</title>
+</head>
+<body>
+	<style>
+* {
+	margin: 8px;
+}
+</style>
+
+	<form action="j_security_check" method="post">
+		<table>
+			<tr>
+				<td colspan="2" align="center"><h2>登入-Login</h2></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<p> The page you have selected requires that you login to proceed.</p>
+				</td>
+			</tr>
+			<tr>
+				<td>使用名稱：</td>
+				<td><input type="text" name="j_username"></td>
+			</tr>
+			<tr>
+				<td>密碼：</td>
+				<td><input type="password" name="j_password"></td>				
+			<tr>
+				<td colspan="2"><input type="submit" value="登入"> 
+				<input type="submit" formaction="index.html" value="首頁"></td>
+			</tr>
+		</table>
+
+	</form>
+</body>
+</html>

@@ -26,6 +26,10 @@ public class EmployeeLuv2UpdateServlet extends HttpServlet {
 	private String update = null;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getUserPrincipal() == null)
+			response.sendRedirect("http://localhost:8080/ServletBasic2/NoActiveServlet");
+		
 		if(DataBaseResource.DB != null) {
 			DataSource ds = (DataSource)request.getServletContext().getAttribute(DataBaseResource.DB);
 			eService.setDs(ds);
@@ -37,7 +41,7 @@ public class EmployeeLuv2UpdateServlet extends HttpServlet {
 		if(update != null)
 			request.setAttribute("employee", eService.selectEmployee(update));
 		else
-			response.sendRedirect("http://localhost:8080/ServletBasic/EmployeeLuv2Servlet"); //防止無id 更新
+			response.sendRedirect("http://localhost:8080/ServletBasic2/EmployeeLuv2Servlet"); //防止無id 更新
 		
 		// output
 		request.getRequestDispatcher("./WEB-INF/view/employeeUpdate.jsp").include(request, response);
@@ -62,7 +66,7 @@ public class EmployeeLuv2UpdateServlet extends HttpServlet {
 		eService.updateEmployee(lastName, firstName, email, department, salary, id);
 		
 		// redirect	回表單
-		response.sendRedirect("http://localhost:8080/ServletBasic/EmployeeLuv2Servlet");
+		response.sendRedirect("http://localhost:8080/ServletBasic2/EmployeeLuv2Servlet");
 		
 	}
 
