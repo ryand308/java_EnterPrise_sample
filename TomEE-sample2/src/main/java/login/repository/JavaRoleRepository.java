@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import login.model.entity.JavaRole;
@@ -39,8 +40,9 @@ public class JavaRoleRepository {
     	
     }
     
-    public JavaRole findById(RoleId roleId) {    	
-    	return em.find(JavaRole.class, roleId);
+    public JavaRole findById(RoleId roleId) {   
+    	// 獨佔鎖 可讀不可改
+    	return em.find(JavaRole.class, roleId, LockModeType.PESSIMISTIC_READ);
     }
     
     public List<JavaRole> findUser() {

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>登入頁面-login page</title>
+<link type="text/css" rel="stylesheet" href="resource/css/login.css" />
 </head>
 <body>
 <style>
@@ -14,33 +15,40 @@ fieldset {
     text-align: center;
 }
 </style>
+	<!-- header -->
+	<app-header></app-header>
 
-	<fieldset>
-		<legend align="center">Errors</legend>
-		<ul>
-			<il style="color: red;">帳號密碼不正確...</il>
-		</ul>
-	</fieldset>
 	
-	<form action="j_security_check" method="post">
-		<table>
-			<tr>
-				<td colspan="2" align="center"><h2>登入-Login</h2></td>
-			</tr>
-			<tr>
-				<td>使用名稱：</td>
-				<td><input type="text" name="j_username"></td>
-			</tr>
-			<tr>
-				<td>密碼：</td>
-				<td><input type="password" name="j_password"></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="submit" value="登入"> 
-				<input type="submit" formaction="index.html" value="首頁"></td>
-			</tr>
-		</table>
-
-	</form>
+	
+	<!-- hero -->
+	<div class="hero">
+		<fieldset>
+			<legend align="center">Errors</legend>
+			<ul>
+				<il style="color: red;">帳號 或 密碼不正確...</il>
+			</ul>
+		</fieldset>
+		<form action="j_security_check" method="post">
+			<table>
+				<tr>
+					<td colspan="2" align="center"><h2>登入-Login</h2></td>
+				</tr>
+				<tr>
+					<td>使用名稱：</td>
+					<td><input type="text" name="j_username"></td>
+				</tr>
+				<tr>
+					<td>密碼：</td>
+					<td><input type="password" name="j_password"></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" value="登入"> 
+					<input type="reset"  value="取消"></td>
+				</tr>
+			</table>	
+		</form>
+	</div>
+	
+	<script type="text/javascript" src="resource/js/indexWebComponent.js"></script>
 </body>
 </html>

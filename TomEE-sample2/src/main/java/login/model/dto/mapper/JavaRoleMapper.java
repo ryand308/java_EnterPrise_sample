@@ -5,6 +5,11 @@ import login.model.entity.JavaRole;
 
 public class JavaRoleMapper {
 
+	/**@value 
+	 * field欄位: <br/>
+	 * String userName<br/>
+	 * boolean active   
+	 * */
 	public static JavaRole dtoToJavaRole(JavaRoleDto dto) {
 		JavaRole javaRole = new JavaRole();
 		javaRole.setUserName(dto.getUserName());
