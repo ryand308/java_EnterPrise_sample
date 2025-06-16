@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:a= "http://xmlns.jcp.org/jsf/passthrough" 
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+<head>
+  <title><ui:insert name="title">Default title</ui:insert></title>
+</head>
+
+<body>
+<style>
+input {
+	margin: 8px;
+}
+</style>
+
+	<h3>The student is confirmed: #{studentBean.firstName} #{studentBean.lastName}</h3>
+	<h3>The student's country: #{studentBean.country} </h3>
+	<h3>Favorite Programming Languages:<br/> #{studentBean.languages} </h3>
+	<h3>Life interests:</h3>
+	<ul>
+		<ui:repeat value="#{studentBean.interests}" var="interests">
+			<li>#{interests}</li>		
+		</ui:repeat>		
+	</ul>
+</body>
+
+</html>

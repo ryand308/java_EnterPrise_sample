@@ -27,7 +27,7 @@ public class Order implements Serializable {
 	@Column(name = "order_id")
 	private long id;
 	@Column(name = "pay")
-	private int pay;
+	private int pay = 0; // default value ; if int of type is null for Exception in web page;
 	@Column(name = "addition", length = 100)
 	private String addition;
 	// 雙向連動

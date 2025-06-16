@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+  <title><ui:insert name="title">Default title</ui:insert></title>
+</head>
+
+<body>
+<style>
+form span, h2 span {	
+	  color: #d20005;
+      font-family: 'New Century Schoolbook', serif;
+      font-style: oblique;
+      text-decoration: underline;
+}
+</style>
+	<!-- #{userNumber.result()}  -->
+	
+	<h:form>	
+		<h2>Hi, my name is Duke. I am thinking of a number from
+			<span>#{userNumber.minimum}</span> to <span>#{userNumber.maximum}</span>. Can you guess
+			it?</h2>
+		<p>
+			<h:inputText id="userNo" title="Enter a number from 0 to 99:"
+				value="#{userNumber.user}"  
+				validatorMessage="validate_error：驗證錯誤：指定的屬性不在預期值內。">
+				<f:validateLongRange minimum="#{userNumber.minimum}"
+					maximum="#{userNumber.maximum}" />
+			</h:inputText>
+			<h:commandButton id="submit" value="Submit" 
+							 actionListener="#{userNumber.responseListener}" 
+							 action="#{userNumber.response}"/>			
+		</p>
+		<h:message showSummary="true" 
+				   showDetail="false"	
+				   id="errors1" for="userNo" />
+				   
+	</h:form>
+	<h3>
+		<h:outputText id="result" value="#{userNumber.result()}" />
+	</h3>
+
+
+</body>
+
+</html>

@@ -54,7 +54,7 @@ public class EncodeFilter extends HttpFilter implements Filter {
 		
 		// response ContentType
 		response.setCharacterEncoding(encode);
-		response.setContentType("text/html; charset:utf-8");
+		response.setContentType("text/html; charset=utf-8");
 		
 		 // 繼續執行後續過濾器
 		chain.doFilter(request, response);

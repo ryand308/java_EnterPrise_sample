@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:a= "http://xmlns.jcp.org/jsf/passthrough" 
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+  <title><ui:insert name="title">Default title</ui:insert></title>
+</head>
+
+<body>
+<style>
+* {
+	margin: 15px;
+}
+</style>
+	
+	<h:form>
+		First Name: <h:inputText value="#{studentBean.firstName}"  
+								 id="first" 
+								 required="true" 
+								 requiredMessage="First Name:驗證錯誤：必須有值。"
+								 maxlength="10"/>
+								 
+	    	<h:message for="first" style = "color:red" />  
+		<br/>
+		Last Name: <h:inputText value="#{studentBean.lastName}" 
+								id="last" 
+								required="true" 
+								requiredMessage="Last Name:驗證錯誤：必須有值。"
+								maxlength="10"/>
+								
+	    	<h:message for="last" style = "color:red" />  
+		<br/>
+		Country:
+		<h:selectOneMenu value="#{studentBean.country}" >
+			<f:selectItems value="#{studentBean.countryOptions}" />			
+		</h:selectOneMenu>
+		<br/>
+		<br/>
+		Favorite Programming Languages:<h:message for="lang" style = "color:red" />
+		<h:selectOneRadio value="#{studentBean.languages}"  id="lang" required="true" requiredMessage="your must be choose">
+			<f:selectItem itemValue="Java" itemLabel="Java" />
+			<f:selectItem itemValue="C++" itemLabel="C++" />
+			<f:selectItem itemValue="Python" itemLabel="Python" />
+			<f:selectItem itemValue="Ruby" itemLabel="Ruby" />
+			<f:selectItem itemValue="Rust" itemLabel="Rust" />
+		</h:selectOneRadio>
+		
+		<br/>
+		Life interests:<h:message for="interest" style = "color:red" />
+		<h:selectManyCheckbox value="#{studentBean.interests}" id="interest" required="true" requiredMessage="your must be choose">
+			<f:selectItem itemValue="吉他" itemLabel="吉他" />
+			<f:selectItem itemValue="跑步" itemLabel="跑步" />
+			<f:selectItem itemValue="閱讀" itemLabel="閱讀" />
+			<f:selectItem itemValue="逛街" itemLabel="逛街" />
+			<f:selectItem itemValue="游泳" itemLabel="游泳" />
+		</h:selectManyCheckbox>
+		
+		<br/>
+		<h:commandButton value="送出" action="createdStudent" />
+		<h:commandButton value="清除" type="reset" />		
+	</h:form>
+	
+</body>
+
+</html>

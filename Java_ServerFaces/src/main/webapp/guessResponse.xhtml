@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+  <title><ui:insert name="title">Default title</ui:insert></title>
+</head>
+
+<body>
+<ui:debug hotkey="x" rendered="#{initParam['jakarta.faces.FACELETS_DEVELOPMENT']}"/>
+
+
+	<h1>Test Successful</h1>
+	<a href="http://localhost:8080/ServletBasic3/">首頁</a>
+	
+	<!-- commandLink 需作用在 tag of form -->
+	<h:form>
+		<h:commandLink value="回遊戲" action="guessGame" />
+	</h:form>
+	
+
+	<h:link outcome="home" value="首頁" />
+	
+</body>
+
+</html>
