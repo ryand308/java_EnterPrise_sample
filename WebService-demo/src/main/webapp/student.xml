@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<student>
+	<id>3</id>
+	<idNumber>100023</idNumber>
+	<score>69</score>
+	<name>王大陸</name>
+	<group>1 年 3 班</group>
+	<club>102</club>
+</student>
